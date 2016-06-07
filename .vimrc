@@ -2,6 +2,11 @@
 " to load plugins ':PlugInstall'
 
 " ------------------------------------------------------------------------------
+" Variable section
+" ------------------------------------------------------------------------------
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1  "https://medium.com/@ericclifford/neovim-item2-truecolor-awesome-70b975516849#.cs5m1w41p
+
+" ------------------------------------------------------------------------------
 " Basic settings section
 " ------------------------------------------------------------------------------
 syntax enable
@@ -15,8 +20,8 @@ set softtabstop=2
 set expandtab
 
 " setup the cross hairs
-hi CursorLine   cterm=NONE ctermbg=lightgreen ctermfg=blue guibg=lightgreen guifg=white
-hi CursorColumn cterm=NONE ctermbg=lightgreen ctermfg=blue guibg=lightgreen guifg=white
+hi CursorLine   cterm=NONE ctermbg=black ctermfg=lightblue guibg=black guifg=white
+hi CursorColumn cterm=NONE ctermbg=black ctermfg=lightblue guibg=black guifg=white
 nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>  "FIXME: this doesn't appear to be working
 set cursorline cursorcolumn
 
@@ -38,6 +43,11 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'kchmck/vim-coffee-script'
 Plug 'majutsushi/tagbar'  "https://github.com/majutsushi/tagbar
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'morhetz/gruvbox'  "NOTE: I had to manually copy gruvbox.vim to ~/.vim/colors/. to get it to work... strange
+Plug 'airblade/vim-gitgutter'
+
 
 call plug#end()
 
@@ -48,8 +58,8 @@ call plug#end()
 imap jj <Esc>  " for situations where capslock isn't remapped
 nmap cc gcc " remap commentary, just quicker
 vmap cc gc " remap commentary to be the same in visual mode, just quicker
-map dw daw
-map cw caw
+map dw diw
+map cw ciw
 
 nnoremap <expr> n  'Nn'[v:searchforward]  "saner n, N - https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 nnoremap <expr> N  'nN'[v:searchforward]
@@ -74,4 +84,7 @@ nnoremap <Leader>w :w<CR>
 
 " \x ever so slightly faster x command
 nnoremap <Leader>x :x<CR>
+
+"select word under cursor and prep for replace
+nnoremap <Leader>r *:%s//
 
