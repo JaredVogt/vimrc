@@ -1,0 +1,94 @@
+# My personal UltiSnips
+
+snippet hashbang "Setup hashbang with env" b
+#!/usr/bin/env bash
+
+endsnippet
+
+snippet jregex "Regex block"
+STRING=${1:String to search}
+[[ $STRING =~ ${2:Ex.(.*)an(.*)\.} ]]  # this is the syntax indicating that you want to do a match… it gets saved into BASH_REMATCH
+echo "First match: (${BASH_REMATCH[1]}), Second match: (${BASH_REMATCH[2]})"
+
+endsnippet
+
+snippet jcase "Case statement"
+function getRank {
+  read -p "Your Prompt" -srn1 INPUT  # silent, -n1 eq single character
+  case "$INPUT" in
+  f|p) # perfect
+      echo 'perfect' ;;
+  h|1) # best
+      echo 'best' ;;
+  0|l) # bad
+      echo 'bad' ;;
+  x) # exit
+      echo -e '\n' >&2  # >&2 outputs to std.err
+      clear
+      exit ;;
+  *) # all other cases
+      echo -e "\nERROR: $INPUT is not a valid entry" >&2
+  esac
+}
+
+result=$(getRank)  # assining to a variable captures the out put from getRank
+
+echo "You pressed: $result"
+
+endsnippet
+
+snippet jassoc "Text into an associative array"
+RESPONSE=$(externalCommand)  # externalCommand returns stringified json
+eval ASSOC_ARRAY=($RESPONSE)  # this will parse the returned string into a bash associative array
+echo “${ASSOC_ARRAY[someKey]}”  # this would access the key someKey in the array (presuming its there)
+
+endsnippet
+
+snippet jargs "args/flags for shell"
+if [[ -z "$1" || -z "$2" ]]
+  then
+    echo 'This script requires two arguements.'
+    echo 'name.sh [flag1] [flag2]'
+    exit
+  else
+    FLAG1=$1
+    FLAG2=$2
+fi
+
+# this is just a quick and dirty example. in this case, the values have to be in the right order, or they will be assigned to the wrong variable. Using flags, eg “-x value” would fix that.
+endsnippet
+
+snippet jif "if/else statement"
+num=1
+if [ num > 0 ]
+  then
+    echo 'first item is bigger than second'
+elif [ num == 1 ]
+  then
+    echo 'first equals second'
+else
+  echo 'neither of the first two cases is true'
+fi
+
+endsnippet
+
+snippet jfunc "function"
+function myfunc {
+  echo $1  # to get the first variable passed in  ls  # do something, like ls ;-)
+  return 0  # return code}
+}
+
+myfunc var1  # to call the function and pass in var1
+funcResponse=$(myfunc "print this")  # this will except what ever is returned from func and save it to funcResponse
+echo $funcResponse
+echo $?  # this will show you the return code from the preceeding called function
+# http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-8.html
+
+endsnippet
+
+snippet jslack "post to slack"
+# FIXME: this is likely very broken
+KEY='insert key'
+curl -X POST -vv --data-urlencode 'payload={"text": "This is posted to general and comes from *monkey-bot*.", "username": "monkey-bot", "icon_emoji": ":monkey_face:"}' https://hooks.slack.com/services/$KEY
+
+endsnippet

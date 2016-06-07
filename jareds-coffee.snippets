@@ -1,0 +1,36 @@
+# My personal UltiSnips
+
+snippet jp "console.log"
+console.log ${1:printWhat?}
+${0:keep rolling}
+endsnippet
+
+snippet jyarg "Insert a yargs block" b
+usage = """${1:Put in a description}
+"""
+argv = require('yargs')
+.usage "#{usage}\nUsage: \$0 -${2} [x description]"
+.demand ['x']
+.default('t', 'time')
+.default('v', 'no')
+.default('a', 0)
+.argv
+${0:and on to the next thing}
+endsnippet
+
+snippet jreq "All my requires" b
+netrc = require 'netrc'
+moment = require 'moment'
+fs = require 'fs'
+_ = require 'lodash'
+redis = require('promise-redis')()
+
+endsnippet
+
+snippet jprom "Promise block"
+# to do
+endsnippet
+
+snippet jpromall "Promiseall block"
+# to do
+endsnippet
