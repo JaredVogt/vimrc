@@ -1,11 +1,27 @@
-" Basic settings
+" NOTE: to source this file ':so %'
+" to load plugins ':PlugInstall'
+
 " ------------------------------------------------------------------------------
-syntax enable 
+" Basic settings section
+" ------------------------------------------------------------------------------
+syntax enable
 colorscheme monokai
 set relativenumber  "set nornu to turn off
 set nu  "this shows you the current line number in relative mode
 
-" Call vim-plug
+" tab settings
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+" setup the cross hairs
+hi CursorLine   cterm=NONE ctermbg=lightgreen ctermfg=blue guibg=lightgreen guifg=white
+hi CursorColumn cterm=NONE ctermbg=lightgreen ctermfg=blue guibg=lightgreen guifg=white
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>  "FIXME: this doesn't appear to be working
+set cursorline cursorcolumn
+
+" ------------------------------------------------------------------------------
+" Call vim-plug section
 " ------------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')  "https://github.com/junegunn/vim-plug
 
@@ -21,19 +37,31 @@ Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'kchmck/vim-coffee-script'
+Plug 'majutsushi/tagbar'  "https://github.com/majutsushi/tagbar
 
 call plug#end()
 
-" General shortcuts
+
+" ------------------------------------------------------------------------------
+" General shortcuts section
+" ------------------------------------------------------------------------------
 imap jj <Esc>  " for situations where capslock isn't remapped
-nmap cc gcc " remap commentary
-vmap cc gc " remap commentary
+nmap cc gcc " remap commentary, just quicker
+vmap cc gc " remap commentary to be the same in visual mode, just quicker
+map dw daw
+map cw caw
+
+nnoremap <expr> n  'Nn'[v:searchforward]  "saner n, N - https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+nnoremap <expr> N  'nN'[v:searchforward]
+
+nmap <CR> O<Esc>  "newline in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 
 
-" Leader Keys
+" ------------------------------------------------------------------------------
+" Leader Keys section
 " ------------------------------------------------------------------------------
 " use spacebar for leader! (does this only work on OSX?)
-let mapleader = "\<Space>"  
+let mapleader = "\<Space>"
 
 " \q ever so slightly faster quit command
 nnoremap <Leader>q :q<CR>
@@ -47,5 +75,3 @@ nnoremap <Leader>w :w<CR>
 " \x ever so slightly faster x command
 nnoremap <Leader>x :x<CR>
 
-" remap commentary to leader key
-nnoremap = <Leader>c gcc
