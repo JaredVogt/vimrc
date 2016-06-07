@@ -1,6 +1,12 @@
+" Basic settings
+" ------------------------------------------------------------------------------
 syntax enable 
 colorscheme monokai
+set relativenumber  "set nornu to turn off
+set nu  "this shows you the current line number in relative mode
 
+" Call vim-plug
+" ------------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')  "https://github.com/junegunn/vim-plug
 
 Plug 'junegunn/vim-easy-align'
@@ -13,10 +19,15 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/nerdcommenter'  "https://github.com/scrooloose/nerdcommenter
 Plug 'tpope/vim-commentary'
+Plug 'kchmck/vim-coffee-script'
 
 call plug#end()
+
+" General shortcuts
+imap jj <Esc>  " for situations where capslock isn't remapped
+nmap cc gcc " remap commentary
+vmap cc gc " remap commentary
 
 
 " Leader Keys
@@ -35,3 +46,6 @@ nnoremap <Leader>w :w<CR>
 
 " \x ever so slightly faster x command
 nnoremap <Leader>x :x<CR>
+
+" remap commentary to leader key
+nnoremap = <Leader>c gcc
