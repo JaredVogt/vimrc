@@ -1,7 +1,7 @@
 syntax enable 
 colorscheme monokai
 
-call plug#begin('~/.vim/plugged')  # https://github.com/junegunn/vim-plug
+call plug#begin('~/.vim/plugged')  "https://github.com/junegunn/vim-plug
 
 Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
@@ -13,6 +13,8 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
+Plug 'scrooloose/nerdcommenter'  "https://github.com/scrooloose/nerdcommenter
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
