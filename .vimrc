@@ -4,20 +4,13 @@
 
 
 " ------------------------------------------------------------------------------
-" Bootstrap Section - required files (vim-plug, monokai, my personal snippets)
+" Bootstrap Section - required files (vim-plug, monokai)
 " ------------------------------------------------------------------------------
-if empty(glob('~/.vim/plugged/vim-snippets/UltiSnips/jareds-shell.snippets'))
-  silent !curl -fLo ~/.vim/plugged/vim-snippets/UltiSnips/jareds-shell.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-shell.snippets
-endif
-
-if empty(glob('~/.vim/plugged/vim-snippets/UltiSnips/jareds-coffee.snippets'))
-  silent !curl -fLo ~/.vim/plugged/vim-snippets/UltiSnips/jareds-coffee.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-coffee.snippets
-endif
-
 if empty(glob('~/.vim/colors/monokai.vim'))
   silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
 endif
 
+" https://github.com/junegunn/vim-plug/wiki/faq
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
@@ -27,7 +20,8 @@ endif
 " ------------------------------------------------------------------------------
 " Variable Section
 " ------------------------------------------------------------------------------
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1  "https://medium.com/@ericclifford/neovim-item2-truecolor-awesome-70b975516849#.cs5m1w41p
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"https://medium.com/@ericclifford/neovim-item2-truecolor-awesome-70b975516849#.cs5m1w41p
 
 
 " ------------------------------------------------------------------------------
@@ -58,11 +52,21 @@ nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 " ------------------------------------------------------------------------------
 " Basic settings Section
 " ------------------------------------------------------------------------------
+" Necessary  for lots of cool vim things
+set nocompatible
+
+" show what my commands are
+set showcmd
+
 syntax enable
 colorscheme monokai
 set background=dark
-set relativenumber  "set nornu to turn off
-set nu  "this shows you the current line number in relative mode
+
+"set nornu to turn off
+set relativenumber
+
+"this shows you the current line number in relative mode
+set nu
 
 " tab settings
 set shiftwidth=2
@@ -70,10 +74,12 @@ set softtabstop=2
 set expandtab
 
 " setup the cross hairs
-hi CursorLine   cterm=NONE ctermbg=black guibg=black guifg=white  "ctermfg=lightblue  this option overrides the colors on highlighted characters - disconcerting, but distinct
+hi CursorLine   cterm=NONE ctermbg=black guibg=black guifg=white
 hi CursorColumn cterm=NONE ctermbg=black guibg=black guifg=white
-
 set cursorline cursorcolumn
+
+"ctermfg=lightblue  this is option to above that overrides the colors on highlighted characters - disconcerting, but distinct
+
 
 " ------------------------------------------------------------------------------
 " Call vim-plug Section
@@ -82,6 +88,8 @@ set cursorline cursorcolumn
 
 call plug#begin('~/.vim/plugged')  "https://github.com/junegunn/vim-plug
 
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
@@ -94,27 +102,36 @@ Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'kchmck/vim-coffee-script'
-Plug 'majutsushi/tagbar'  "https://github.com/majutsushi/tagbar
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'morhetz/gruvbox'  "NOTE: I had to manually copy gruvbox.vim to ~/.vim/colors/. to get it to work... strange
-Plug 'airblade/vim-gitgutter'  "NOTE: might have to turn this on `:GitGutterEnable`
+Plug 'majutsushi/tagbar'
+Plug 'morhetz/gruvbox'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
+
+"NOTE: I had to manually copy gruvbox.vim to ~/.vim/colors/. to get it to work... strange
 
 
 " ------------------------------------------------------------------------------
 " General shortcuts Section
 " ------------------------------------------------------------------------------
-imap jj <Esc>  " for situations where capslock isn't remapped
-nmap cc gcc " remap commentary, just quicker
-vmap cc gc " remap commentary to be the same in visual mode, just quicker
+" for situations where capslock isn't remapped
+imap jj <Esc>
+
+" remap vim-commentary, just quicker
+nmap cc gcc
+
+" remap vim-commentary to be the same in visual mode, just quicker
+vmap cc gc
+
 map dw daw
 map cw ciw
-nnoremap <expr> n  'Nn'[v:searchforward]  "saner n, N - https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+
+"saner n, N - https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 
-nmap <CR> O<Esc>  "newline in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
+"newline in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
+nmap <CR> O<Esc>
 
 
 " ------------------------------------------------------------------------------
@@ -124,6 +141,27 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 imap <tab><tab> <C-J>  "when tab is interpreted literally, this can work
-autocmd FileType coffee UltiSnipsAddFiletypes jareds-coffee  "this loads up snippets in ~/.vim/plugged/vim-snippets/UltiSnips/jareds-coffee.snippets and associates with coffee files
+
+"this loads up snippets in ~/.vim/plugged/vim-snippets/UltiSnips/jareds-x.snippets and associates with x files
+autocmd FileType coffee UltiSnipsAddFiletypes jareds-coffee
 autocmd FileType sh UltiSnipsAddFiletypes jareds-shell
+
+
+" ------------------------------------------------------------------------------
+" Load My Snippets Section (TODO: this could be a whole repo that is pulled in) FIXME: its broken in general right now
+" ------------------------------------------------------------------------------
+"if empty(glob('~/.vim/plugged/vim-snippets/UltiSnips/jareds-shell.snippets'))
+"  silent !curl -fLo ~/.vim/plugged/vim-snippets/UltiSnips/jareds-shell.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-shell.snippets
+"endif
+
+"if empty(glob('~/.vim/plugged/vim-snippets/UltiSnips/jareds-coffee.snippets'))
+"  silent !curl -fLo ~/.vim/plugged/vim-snippets/UltiSnips/jareds-coffee.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-coffee.snippets
+"endif
+
+
+" ------------------------------------------------------------------------------
+" Insperation Section
+" ------------------------------------------------------------------------------
+"https://gist.github.com/aflock/6500273
+
 
