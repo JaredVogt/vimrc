@@ -55,6 +55,10 @@ filetype plugin on
 filetype indent on
 syntax enable
 
+" vim-session settings
+let g:session_autosave = 'yes'
+let g:session_autoload = 'yes'
+
 colorscheme molokai_dark
 set background=dark
 set guifont=Source\ Code\ Pro:h14
@@ -154,8 +158,8 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-misc'
-Plug 'vim-session'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
 call plug#end()
 
