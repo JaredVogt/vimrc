@@ -10,7 +10,7 @@ if empty(glob('~/.vim/colors/monokai.vim'))
   silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
 endif
 
-" https://github.com/junegunn/vim-plug/wiki/faq
+" NOTE: https://github.com/junegunn/vim-plug/wiki/faq
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
@@ -20,8 +20,83 @@ endif
 " ------------------------------------------------------------------------------
 " Variable Section
 " ------------------------------------------------------------------------------
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"https://medium.com/@ericclifford/neovim-item2-truecolor-awesome-70b975516849#.cs5m1w41p
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1  "https://medium.com/@ericclifford/neovim-item2-truecolor-awesome-70b975516849#.cs5m1w41p
+
+
+" ------------------------------------------------------------------------------
+" Basic settings Section
+" ------------------------------------------------------------------------------
+set history=1000            " remember more commands and search history
+set undolevels=1000         " use many muchos levels of undo
+set visualbell              " don't beep
+set noerrorbells            " don't beep
+set nocompatible            " Necessary for lots of cool vim things
+set showcmd                 " show what my commands are
+set relativenumber          " NOTE: `set nornu` to turn off
+set nu                      " this shows you the current line number in relative mode
+set clipboard=unnamed       " yank to system clipboard
+set ignorecase              " ignore case when searching
+set smartcase               " ignore case if search pattern is all lowercase, case-sensitive otherwise
+set hlsearch                " highlight search terms  NOTE: in sensible
+set incsearch               " show search matches as you type  NOTE: in sensible
+set ww=<,>,h,l              " wrap lines with movement keys
+"set list                    " show characters
+set wildmenu                " autocompletion  NOTE: in sensible
+au FocusLost * silent! wa   " Auto save buffers whenever you lose focus
+au FocusLost * stopinsert   " switch back to insert on change of focus
+set autowriteall            " Auto save buffers when you switch context
+set lcs+=trail:·            " show trailing spaces
+set undofile                " Maintain undo history between sessions
+set undodir=~/.vim/undodir  " Need to make sure this directory exists (http://www.electricmonk.nl/log/2012/07/26/persistent-undo-history-in-vim/)
+
+" Needed for Syntax Highlighting and stuff (NOTE: http://stackoverflow.com/questions/5602767/why-is-vim-not-detecting-my-coffescript-filetype)
+filetype on
+filetype plugin on
+filetype indent on
+syntax enable
+
+colorscheme molokai_dark
+set background=dark
+set guifont=Source\ Code\ Pro:h14
+set transparency=7      "only applicable to macvim
+
+" tab settings
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set smarttab                " insert tabs on the start of a line according to shiftwidth, not tabstop
+
+" setup the cross hairs
+hi CursorLine   cterm=NONE ctermbg=black guibg=#330000 guifg=white  "ctermfg=lightblue  this is option to above that overrides the colors on highlighted characters - disconcerting, but distinct
+hi CursorColumn cterm=NONE ctermbg=black guibg=#330000 guifg=white
+set cursorline cursorcolumn
+
+" NerdTree
+let NERDTreeShowHidden=1
+let NERDTreeMinimalUI=1
+let NERDTreeIgnore=['\.DS_Store$', '.swp', 'sublime-workspace', 'sublime-project']
+
+" MacVim tabs
+" set guitablabel=%M%t\ (%F)
+
+nnoremap td  :tabclose<CR>
+nnoremap th  :tabnext<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tabprev<CR>
+nnoremap tm  :tabm<Space>
+nnoremap tn  :tabnew<CR>
+nnoremap tt  :tabedit<Space>
+
+nnoremap t1  :tabn 1<CR>
+nnoremap t2  :tabn 2<CR>
+nnoremap t3  :tabn 3<CR>
+nnoremap t4  :tabn 4<CR>
+nnoremap t5  :tabn 5<CR>
+nnoremap t6  :tabn 6<CR>
+nnoremap t7  :tabn 7<CR>
+nnoremap t8  :tabn 8<CR>
+nnoremap t9 :tabn 9<CR>
 
 
 " ------------------------------------------------------------------------------
@@ -45,40 +120,14 @@ nnoremap <Leader>w :w<CR>
 " \x ever so slightly faster x command
 nnoremap <Leader>x :x<CR>
 
+" \ev Edit this file FIXME: this should use $MYVIMRC
+nnoremap <leader>ev :e ~/.vimrc<cr>
+
+" \d show/hide NerdTree
+nnoremap <leader>d :NERDTreeToggle<cr>
+
 "select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-
-
-" ------------------------------------------------------------------------------
-" Basic settings Section
-" ------------------------------------------------------------------------------
-" Necessary  for lots of cool vim things
-set nocompatible
-
-" show what my commands are
-set showcmd
-
-syntax enable
-colorscheme monokai
-set background=dark
-
-"set nornu to turn off
-set relativenumber
-
-"this shows you the current line number in relative mode
-set nu
-
-" tab settings
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-
-" setup the cross hairs
-hi CursorLine   cterm=NONE ctermbg=black guibg=black guifg=white
-hi CursorColumn cterm=NONE ctermbg=black guibg=black guifg=white
-set cursorline cursorcolumn
-
-"ctermfg=lightblue  this is option to above that overrides the colors on highlighted characters - disconcerting, but distinct
 
 
 " ------------------------------------------------------------------------------
@@ -140,28 +189,32 @@ nmap <CR> O<Esc>
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-imap <tab><tab> <C-J>  "when tab is interpreted literally, this can work
 
 "this loads up snippets in ~/.vim/plugged/vim-snippets/UltiSnips/jareds-x.snippets and associates with x files
-autocmd FileType coffee UltiSnipsAddFiletypes jareds-coffee
-autocmd FileType sh UltiSnipsAddFiletypes jareds-shell
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "mySnips"]
+au FileType coffee UltiSnipsAddFiletypes jareds-coffee
+au FileType sh UltiSnipsAddFiletypes jareds-shell
 
 
 " ------------------------------------------------------------------------------
 " Load My Snippets Section (TODO: this could be a whole repo that is pulled in) FIXME: its broken in general right now
 " ------------------------------------------------------------------------------
-"if empty(glob('~/.vim/plugged/vim-snippets/UltiSnips/jareds-shell.snippets'))
-"  silent !curl -fLo ~/.vim/plugged/vim-snippets/UltiSnips/jareds-shell.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-shell.snippets
-"endif
+if empty(glob('~/.vim/mySnips/jareds-shell.snippets'))
+  silent !curl -fLo ~/.vim/mySnips/jareds-shell.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-shell.snippets
+endif
 
-"if empty(glob('~/.vim/plugged/vim-snippets/UltiSnips/jareds-coffee.snippets'))
-"  silent !curl -fLo ~/.vim/plugged/vim-snippets/UltiSnips/jareds-coffee.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-coffee.snippets
-"endif
+if empty(glob('~/.vim/mySnips/jareds-coffee.snippets'))
+  silent !curl -fLo ~/.vim/mySnips/jareds-coffee.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-coffee.snippets
+endif
 
 
 " ------------------------------------------------------------------------------
 " Insperation Section
 " ------------------------------------------------------------------------------
 "https://gist.github.com/aflock/6500273
+"https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+"http://nvie.com/posts/how-i-boosted-my-vim/
+"http://www.guckes.net/vim/setup.html (good explanation of basic options)
+
 
 
