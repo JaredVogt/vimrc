@@ -154,6 +154,8 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 Plug 'airblade/vim-gitgutter'
+Plug 'vim-misc'
+Plug 'vim-session'
 
 call plug#end()
 
