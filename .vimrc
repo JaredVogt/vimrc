@@ -1,15 +1,12 @@
 " NOTE: to source this file ':so %'
+" NOTE: reload vimrc for all files?
 " to load plugins ':PlugInstall'
-" This file is symlinked for use in neovim `ln -s ~/.vim ~/.config/nvim` and `ln -s ~/.vimrc ~/.config/nvim/init.vim`
+" symlink for use in neovim `ln -s ~/.vim ~/.config/nvim` and `ln -s ~/.vimrc ~/.config/nvim/init.vim`
 
 
 " ------------------------------------------------------------------------------
 " Bootstrap Section - required files (vim-plug, monokai)
 " ------------------------------------------------------------------------------
-if empty(glob('~/.vim/colors/monokai.vim'))
-  silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
-endif
-
 " NOTE: https://github.com/junegunn/vim-plug/wiki/faq
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -109,28 +106,34 @@ nnoremap t9 :tabn 9<CR>
 " use spacebar for leader! (does this only work on OSX?)
 let mapleader = "\<Space>"
 
-" turn cursor lines on/off
+" \c  - turn cursor lines on/off
 nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
-" \q ever so slightly faster quit command
+" \q  - ever so slightly faster quit command
 nnoremap <Leader>q :q<CR>
 
-" \q! ever so slightly faster quit command w/! override (this is dangerous, will make this something that requires attention)
+" \q!  - ever so slightly faster quit command w/! override (this is dangerous, will make this something that requires attention)
 " nnoremap <Leader>yq :q!<CR>
 
-" \w ever so slightly faster write command
+" \w  - ever so slightly faster write command
 nnoremap <Leader>w :w<CR>
 
-" \x ever so slightly faster x command
+" \x  - ever so slightly faster x command
 nnoremap <Leader>x :x<CR>
 
-" \ev Edit this file FIXME: this should use $MYVIMRC
+" \snip  - Edit my coffeescript snippets 
+nnoremap <leader>snip :e ~/.vim/mySnips/jareds-coffee.snippets<cr>
+
+" \ev  - Edit this file FIXME: this should use $MYVIMRC
 nnoremap <leader>ev :e ~/.vimrc<cr>
 
-" \d show/hide NerdTree
+" \d  - show/hide NerdTree
 nnoremap <leader>d :NERDTreeToggle<cr>
 
-"select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
+" \reg  - see contents of all registers 
+nnoremap <leader>reg :reg<cr>
+
+" \r  - select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 
@@ -211,6 +214,17 @@ endif
 
 if empty(glob('~/.vim/mySnips/jareds-coffee.snippets'))
   silent !curl -fLo ~/.vim/mySnips/jareds-coffee.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-coffee.snippets
+endif
+
+" ------------------------------------------------------------------------------
+" Load my Color stuff Section (color file and fonts?) 
+" ------------------------------------------------------------------------------
+if empty(glob('~/.vim/colors/molokai_dark.vim'))
+  silent !curl -fLo ~/.vim/colors/molokai_dark.vim --create-dirs https://raw.githubusercontent.com/fcevado/molokai_dark/master/colors/molokai_dark.vim`
+endif
+
+if empty(glob('~/.vim/colors/monokai.vim'))
+  silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
 endif
 
 
