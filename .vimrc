@@ -10,7 +10,7 @@
 " NOTE: https://github.com/junegunn/vim-plug/wiki/faq
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+  au VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 
@@ -37,10 +37,9 @@ set smartcase               " ignore case if search pattern is all lowercase, ca
 set hlsearch                " highlight search terms  NOTE: in sensible
 set incsearch               " show search matches as you type  NOTE: in sensible
 set ww=<,>,h,l              " wrap lines with movement keys
-"set list                    " show characters
+"set list                    " show characters  FIXME: like to show trailing spaces but NOT newlines
 set wildmenu                " autocompletion  NOTE: in sensible
 au FocusLost * silent! wa   " Auto save buffers whenever you lose focus
-au FocusLost * stopinsert   " switch back to insert on change of focus
 set autowriteall            " Auto save buffers when you switch context
 set lcs+=trail:·            " show trailing spaces
 set undofile                " Maintain undo history between sessions
@@ -97,13 +96,22 @@ nnoremap t5  :tabn 5<CR>
 nnoremap t6  :tabn 6<CR>
 nnoremap t7  :tabn 7<CR>
 nnoremap t8  :tabn 8<CR>
-nnoremap t9 :tabn 9<CR>
+nnoremap t9  :tabn 9<CR>
+
+" automatic switching back to normal mode
+" au FocusLost * stopinsert   " switch back to normal on change of focus (FIXME: there is issue here... )
+au FocusLost * call feedkeys("\<C-\>\<C-n>")  " this looks like it might solve problem per http://stackoverflow.com/questions/2968548/vim-return-to-command-mode-when-focus-is-lost
+" set 'updatetime' to 15 seconds when in insert mode (for command below) - http://vim.wikia.com/wiki/To_switch_back_to_normal_mode_automatically_after_inaction
+au InsertEnter * let updaterestore=&updatetime | set updatetime=120000
+au InsertLeave * let &updatetime=updaterestore
+" automatically leave insert mode after 'updatetime' milliseconds of inaction
+au CursorHoldI * stopinsert
 
 
 " ------------------------------------------------------------------------------
 " Leader Section (I think you have to mapleader before you can define <Leader> shortcuts - so doing it at the top)
 " ------------------------------------------------------------------------------
-" use spacebar for leader! (does this only work on OSX?)
+" use spacebar for leader!!!
 let mapleader = "\<Space>"
 
 " \c  - turn cursor lines on/off
@@ -124,17 +132,26 @@ nnoremap <Leader>x :x<CR>
 " \snip  - Edit my coffeescript snippets 
 nnoremap <leader>snip :e ~/.vim/mySnips/jareds-coffee.snippets<cr>
 
-" \ev  - Edit this file FIXME: this should use $MYVIMRC
+" \ev  - Edit active .vimrc FIXME: this should use $MYVIMRC
 nnoremap <leader>ev :e ~/.vimrc<cr>
 
-" \d  - show/hide NerdTree
-nnoremap <leader>d :NERDTreeToggle<cr>
+" \vimrc  - Edit my git repo vimrc
+nnoremap <leader>vimrc :tabedit ~/projects/vimrc/.vimrc<cr>
 
-" \reg  - see contents of all registers 
+" \d  - show/hide NerdTree
+nnoremap <leader>d :NERDTreeToggle<cr>  
+
+" \reg  - see contents of all registers
 nnoremap <leader>reg :reg<cr>
 
 " \r  - select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+
+" \sbp  - source .vimrc
+nnoremap <Leader>sbp :so ~/.vimrc<cr>
+
+" \p  - paste the yank register (NOTE: shouldn't this be a visual mapping? It works, but not sure why)
+nnoremap <Leader>p "0p 
 
 
 " ------------------------------------------------------------------------------
@@ -163,6 +180,12 @@ Plug 'morhetz/gruvbox'
 Plug 'airblade/vim-gitgutter'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
+Plug 'jistr/vim-nerdtree-tabs'
+"Plugs to add
+" Plug 'mileszs/ack.vim'
+" Plug 'sjbach/lusty'
+" Plug 'wincent/Command-T'
+
 
 call plug#end()
 
@@ -188,7 +211,7 @@ map cw ciw
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 
-"newline in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
+"newline on return in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nmap <CR> O<Esc>
 
 
@@ -217,6 +240,27 @@ if empty(glob('~/.vim/mySnips/jareds-coffee.snippets'))
 endif
 
 " ------------------------------------------------------------------------------
+" File Type Specific Section 
+" ------------------------------------------------------------------------------
+au FileType markdown setlocal spell wrap linebreak nolist tw=0 wm=0
+au FileType text setlocal spell wrap linebreak nolist tw=0 wm=0
+
+" ------------------------------------------------------------------------------
+" Tagbar Section 
+" ------------------------------------------------------------------------------
+" following is necessary to support coffeescript with tagbar per https://github.com/majutsushi/tagbar/wiki#coffeescript 
+let g:tagbar_type_coffee = {
+    \ 'ctagstype' : 'coffee',
+    \ 'kinds'     : [
+        \ 'c:classes',
+        \ 'm:methods',
+        \ 'f:functions',
+        \ 'v:variables',
+        \ 'f:fields',
+    \ ]
+\ }
+
+" ------------------------------------------------------------------------------
 " Load my Color stuff Section (color file and fonts?) 
 " ------------------------------------------------------------------------------
 if empty(glob('~/.vim/colors/molokai_dark.vim'))
@@ -229,12 +273,23 @@ endif
 
 
 " ------------------------------------------------------------------------------
+" Random Commands Section
+" ------------------------------------------------------------------------------
+nnoremap <Leader>help :!source $HOME/.bash_profile && popmd $PROJECT_HOME/helpdocs/helpme.md<cr>
+nnoremap <Leader>update :!cp ~/projects/vimrc/.vimrc ~/.vimrc
+
+" ------------------------------------------------------------------------------
 " Insperation Section
 " ------------------------------------------------------------------------------
 "https://gist.github.com/aflock/6500273
 "https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 "http://nvie.com/posts/how-i-boosted-my-vim/
 "http://www.guckes.net/vim/setup.html (good explanation of basic options)
+
+" Coffeescript specific instructions
+" https://github.com/kchmck/vim-coffee-script#compile-to-javascript
+" http://esa-matti.suuronen.org/blog/2011/11/28/how-to-write-coffeescript-efficiently/
+" https://srackham.wordpress.com/2011/10/20/compiling-coffeescript-with-vim/
 
 
 
