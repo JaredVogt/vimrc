@@ -1,3 +1,4 @@
+"
 " NOTE: to source this file ':so %'
 " NOTE: reload vimrc for all files?
 " to load plugins ':PlugInstall'
@@ -23,6 +24,8 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1  "https://medium.com/@ericclifford/neovim-item
 " ------------------------------------------------------------------------------
 " Basic settings Section
 " ------------------------------------------------------------------------------
+
+set timeout timeoutlen=3000 ttimeoutlen=1000  " a little more time to complete Leader sequences
 set history=1000            " remember more commands and search history
 set undolevels=1000         " use many muchos levels of undo
 set visualbell              " don't beep
@@ -298,7 +301,7 @@ endif
 " ------------------------------------------------------------------------------
 if has("gui_running")
   set guifont=Source\ Code\ Pro:h14
-  set transparency=7      "only applicable to macvim
+  set transparency=7      "only applicable to macvim, range 0-100
 endif
 
 
@@ -307,7 +310,13 @@ endif
 " ------------------------------------------------------------------------------
 " <L>help - pop helpme.md in a browser
 nnoremap <Leader>help :!source $HOME/.bash_profile && popmd $PROJECT_HOME/helpdocs/helpme.md<cr>
-"
+
+" <L>tips - show all <Leader> mappings
+nnoremap <Leader>tips :! more ~/.vimrc \| grep '<L>'<cr>
+
+" <L>cheat - show vim shortcuts
+nnoremap <Leader>cheat :! more ~/.vim/vimCheatSheet.md<cr>
+
 " <L>reload - copy repo .vimrc to active .vimrc
 nnoremap <Leader>reload :!cp ~/projects/vimrc/.vimrc ~/.vimrc
 
