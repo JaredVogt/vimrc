@@ -1,4 +1,4 @@
-# My personal UltiSnips
+# My personal coffeescript UltiSnips
 
 snippet jp "console.log"
 console.log ${1:printWhat?}
@@ -33,4 +33,16 @@ endsnippet
 
 snippet jpromall "Promiseall block"
 # to do
+endsnippet
+
+snippet jread "readFileSync"
+fs = require "fs"
+contents = fs.readFileSync ${1:filename}, 'utf8'
+
+readFileSync = (file, json = 'no', encoding = 'utf8') ->
+  contents = (require 'fs').readFileSync file, {encoding: encoding}
+  if json is 'yes'
+    JSON.parse contents
+  else
+    contents
 endsnippet
