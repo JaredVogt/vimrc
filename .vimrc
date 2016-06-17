@@ -169,20 +169,21 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'kchmck/vim-coffee-script'
 Plug 'majutsushi/tagbar'
-Plug 'morhetz/gruvbox'
 Plug 'airblade/vim-gitgutter'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
-" Plug 'jistr/vim-nerdtree-tabs'  " automatically open NERDTree in every tab (shutting off for now - driving me nuts)
 Plug 'Shougo/unite.vim'
-"Plugs to add
+
+" Plugs to add
 " Plug 'mileszs/ack.vim'
 " Plug 'sjbach/lusty'
 " Plug 'wincent/Command-T'
 
-call plug#end()
+" Plugs currently commented out
+" Plug 'jistr/vim-nerdtree-tabs'  " automatically open NERDTree in every tab (shutting off for now - driving me nuts)
+" Plug 'morhetz/gruvbox'
 
-"NOTE: I had to manually copy gruvbox.vim to ~/.vim/colors/. to get it to work... strange
+call plug#end()
 
 
 " ------------------------------------------------------------------------------
