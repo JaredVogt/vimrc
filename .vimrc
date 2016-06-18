@@ -1,4 +1,5 @@
 "
+"
 " NOTE: to source this file ':so %'
 " NOTE: reload vimrc for all files?
 " to load plugins ':PlugInstall'
@@ -151,6 +152,9 @@ nnoremap <Leader>ls :ls<cr>
 " <L>f - ctrl+w to jump around splits (or "frames")
 nnoremap <Leader>f <C-w>
 
+" <L>paste - toggle paste mode to paste without autoindent
+nnoremap <Leader>paste :set pastetoggle<cr>
+
 
 " ------------------------------------------------------------------------------
 " Call vim-plug Section
@@ -164,6 +168,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
@@ -176,6 +181,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 Plug 'Shougo/unite.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'ntpeters/vim-airline-colornum'
 
 " Plugs to add
 " Plug 'mileszs/ack.vim'
@@ -300,7 +307,13 @@ endif
 " GUI Section
 " ------------------------------------------------------------------------------
 if has("gui_running")
-  set guifont=Source\ Code\ Pro:h14
+  " These are the basic settings to get the font to work (required):
+  set guifont=DroidSansMonoforPowerline\ Nerd\ Font:h13
+  set encoding=utf-8
+  " required if using https://github.com/bling/vim-airline
+  let g:airline_powerline_fonts=1
+  let g:airline_theme='powerlineish'
+  " set guifont=Source\ Code\ Pro\ for\ Powerline:h14
   set transparency=7      "only applicable to macvim, range 0-100
 endif
 
