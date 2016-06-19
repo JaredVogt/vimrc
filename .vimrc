@@ -72,6 +72,10 @@ hi CursorLine   cterm=NONE ctermbg=black guibg=#330000 guifg=white  "ctermfg=lig
 hi CursorColumn cterm=NONE ctermbg=black guibg=#330000 guifg=white
 set cursorline cursorcolumn
 
+" but turn off cursor line with in insert
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
+
 " NerdTree
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
@@ -184,6 +188,8 @@ Plug 'Shougo/unite.vim'
 Plug 'ryanoasis/vim-devicons'                   " adds filetype glyphs (icons) to other plugins
 Plug 'ntpeters/vim-airline-colornum'            " sets info bar cursorline to same color as mode
 Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for commonly used ex commands
+Plug 'ivyl/vim-bling'                           " blink search highlight
+Plug 'henrik/vim-indexed-search'                " automatically prints - At match #N out of M matches
 
 " Plugs to add
 " Plug 'mileszs/ack.vim'
@@ -329,6 +335,9 @@ nnoremap <Leader>help :!source $HOME/.bash_profile && popmd $PROJECT_HOME/helpdo
 " <L>tips - show all <Leader> mappings
 nnoremap <Leader>tips :! more ~/.vimrc \| grep '<L>'<cr>
 
+" <L>snips - all coffeescript snippets
+nnoremap <Leader>snips :! more ~/.vim/mySnips/jareds-coffee.snippets \| grep '^snippet'<cr>
+
 " <L>cheat - show vim shortcuts
 nnoremap <Leader>cheat :! more ~/.vim/vimCheatSheet.md<cr>
 
@@ -337,7 +346,7 @@ nnoremap <Leader>reload :!cp ~/projects/vimrc/.vimrc ~/.vimrc
 
 
 " ------------------------------------------------------------------------------
-" Cleanup Section
+" Initialization Section - stuff to run on first time
 " ------------------------------------------------------------------------------
 if empty(glob('~/.vim/initialized'))
   silent !touch ~/.vim/initialized
