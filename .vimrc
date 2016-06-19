@@ -200,6 +200,10 @@ Plug 'henrik/vim-indexed-search'                " automatically prints - At matc
 " Plug 'jistr/vim-nerdtree-tabs'  " automatically open NERDTree in every tab (shutting off for now - driving me nuts)
 " Plug 'morhetz/gruvbox'
 
+" Plugs to explore
+" Plug 'osyo-manga/vim-over'                    " preview replacements inline
+" Plug 'othree/yajs.vim'                        " Yet Another JavaScript Syntax
+
 call plug#end()
 
 

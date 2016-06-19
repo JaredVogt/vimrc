@@ -1,8 +1,21 @@
 # My personal coffeescript UltiSnips
+# `b` designates that it must match at the beginning of a line
 
 snippet jp "console.log"
 console.log ${1:printWhat?}
 ${0:keep rolling}
+endsnippet
+
+snippet jcomm "comment block" b
+################################
+# ${1:Enter your comment}
+################################
+$0
+endsnippet
+
+snippet netrc "netrc block" b
+[login, account, password] = netrc().['${1:service}']
+$0
 endsnippet
 
 snippet jyarg "Insert a yargs block" b
@@ -33,6 +46,16 @@ endsnippet
 
 snippet jpromall "Promiseall block"
 # to do
+endsnippet
+
+snippet jspawn "spawn block" b
+contents = ''
+spawn ${1:command}, [${2:arg1}], ${3:options}  # cmd, args, opts
+.stdout
+.on 'data', (chunk) -> contents += chunk
+.on 'error', (err) -> console.error 'Error', err
+.on 'end', -> console.log contents  # might need `.tostring`
+$0
 endsnippet
 
 snippet jread "readFileSync"
