@@ -178,11 +178,12 @@ Plug 'tpope/vim-commentary'
 Plug 'kchmck/vim-coffee-script'
 Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
-Plug 'xolox/vim-misc'
+Plug 'xolox/vim-misc'                           " contains Vim scripts for other xolox plugins
 Plug 'xolox/vim-session'
 Plug 'Shougo/unite.vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'ntpeters/vim-airline-colornum'
+Plug 'ryanoasis/vim-devicons'                   " adds filetype glyphs (icons) to other plugins
+Plug 'ntpeters/vim-airline-colornum'            " sets info bar cursorline to same color as mode
+Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for commonly used ex commands
 
 " Plugs to add
 " Plug 'mileszs/ack.vim'
@@ -256,7 +257,7 @@ au FileType sh UltiSnipsAddFiletypes jareds-shell
 
 
 " ------------------------------------------------------------------------------
-" Load My Snippets Section (TODO: this could be a whole repo that is pulled in) FIXME: its broken in general right now
+" Load My Snippets Section (TODO: this could be a whole repo that is pulled in)
 " ------------------------------------------------------------------------------
 if empty(glob('~/.vim/mySnips/jareds-shell.snippets'))
   silent !curl -fLo ~/.vim/mySnips/jareds-shell.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-shell.snippets
@@ -308,7 +309,8 @@ endif
 " ------------------------------------------------------------------------------
 if has("gui_running")
   " These are the basic settings to get the font to work (required):
-  set guifont=DroidSansMonoforPowerline\ Nerd\ Font:h13
+  set guifont=SauceCodePro\ Nerd\ Font:h13
+  " set guifont=DroidSansMonoforPowerline\ Nerd\ Font:h13  "Chadwick declares this best programming font ever
   set encoding=utf-8
   " required if using https://github.com/bling/vim-airline
   let g:airline_powerline_fonts=1
@@ -332,6 +334,16 @@ nnoremap <Leader>cheat :! more ~/.vim/vimCheatSheet.md<cr>
 
 " <L>reload - copy repo .vimrc to active .vimrc
 nnoremap <Leader>reload :!cp ~/projects/vimrc/.vimrc ~/.vimrc
+
+
+" ------------------------------------------------------------------------------
+" Cleanup Section
+" ------------------------------------------------------------------------------
+if empty(glob('~/.vim/initialized'))
+  silent !touch ~/.vim/initialized
+  autocmd VimEnter * PlugInstall  " trigger loading all plugins if this is the first time
+endif
+
 
 
 " ------------------------------------------------------------------------------
