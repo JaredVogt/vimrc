@@ -1,4 +1,4 @@
-# vimrc
+![Vim or Die](http://ih0.redbubble.net/image.46056765.5518/flat,800x800,075,f-c,0,75,800,331.jpg)
 
 ## To do by hand
 Everything need to get vim going is embedded in vimrc. Open a document with vim and it will install vim-plug automatically
