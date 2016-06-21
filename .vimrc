@@ -1,5 +1,4 @@
 "
-"
 " NOTE: to source this file ':so %'
 " NOTE: reload vimrc for all files?
 " to load plugins ':PlugInstall'
@@ -190,6 +189,7 @@ Plug 'ntpeters/vim-airline-colornum'            " sets info bar cursorline to sa
 Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for commonly used ex commands
 Plug 'ivyl/vim-bling'                           " blink search highlight
 Plug 'henrik/vim-indexed-search'                " automatically prints - At match #N out of M matches
+Plug 'chrisbra/Recover.vim'                     " adds option for diff if a swp file is hanging around
 
 " Plugs to add
 " Plug 'mileszs/ack.vim'
@@ -306,7 +306,7 @@ let g:tagbar_type_coffee = {
 " Load my Color stuff Section (color file and fonts?)
 " ------------------------------------------------------------------------------
 if empty(glob('~/.vim/colors/molokai_dark.vim'))
-  silent !curl -fLo ~/.vim/colors/molokai_dark.vim --create-dirs https://raw.githubusercontent.com/fcevado/molokai_dark/master/colors/molokai_dark.vim`
+  silent !curl -fLo ~/.vim/colors/molokai_dark.vim --create-dirs https://raw.githubusercontent.com/fcevado/molokai_dark/master/colors/molokai_dark.vim
 endif
 
 if empty(glob('~/.vim/colors/monokai.vim'))
@@ -337,7 +337,7 @@ endif
 nnoremap <Leader>help :!source $HOME/.bash_profile && popmd $PROJECT_HOME/helpdocs/helpme.md<cr>
 
 " <L>tips - show all <Leader> mappings
-nnoremap <Leader>tips :! more ~/.vimrc \| grep '<L>'<cr>
+nnoremap <Leader>bar :! more ~/.vimrc \| grep '<L>' \| sed -e "s/^.*<L>\(.*\)/\1/"<cr>
 
 " <L>snips - all coffeescript snippets
 nnoremap <Leader>snips :! more ~/.vim/mySnips/jareds-coffee.snippets \| grep '^snippet'<cr>
