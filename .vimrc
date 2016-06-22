@@ -46,6 +46,8 @@ au FocusLost * silent! wa   " Auto save buffers whenever you lose focus
 set autowriteall            " Auto save buffers when you switch context
 set lcs+=trail:·            " show trailing spaces
 set undofile                " Maintain undo history between sessions NOTE: requires path to be set
+set wildignore=node_modules/*
+set wildignore+=cs2js/*
 
 " Needed for Syntax Highlighting and stuff (NOTE: http://stackoverflow.com/questions/5602767/why-is-vim-not-detecting-my-coffescript-filetype)
 filetype on
@@ -135,7 +137,7 @@ nnoremap <leader>ev :e ~/.vimrc<cr>
 nnoremap <leader>vimrc :tabedit ~/projects/vimrc/.vimrc<cr>
 
 " <L>d  - show/hide NerdTree
-nnoremap <leader>d :NERDTreeToggle<cr>
+nnoremap <leader>d :Texplore<cr>
 
 " <L>reg  - see contents of all registers
 nnoremap <leader>reg :reg<cr>
@@ -190,6 +192,7 @@ Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for 
 Plug 'ivyl/vim-bling'                           " blink search highlight
 Plug 'henrik/vim-indexed-search'                " automatically prints - At match #N out of M matches
 Plug 'chrisbra/Recover.vim'                     " adds option for diff if a swp file is hanging around
+Plug 'tpope/vim-vinegar'                        " additional options for netrw
 
 " Plugs to add
 " Plug 'mileszs/ack.vim'
@@ -203,6 +206,13 @@ Plug 'chrisbra/Recover.vim'                     " adds option for diff if a swp 
 " Plugs to explore
 " Plug 'osyo-manga/vim-over'                    " preview replacements inline
 " Plug 'othree/yajs.vim'                        " Yet Another JavaScript Syntax
+" Plug 'lfilho/cosco.vim'                       " semi colon automation/help
+" Plug 'mkitt/tabline.vim'                      " replace tabline at top
+" Plug 'zhaocai/GoldenView.Vim'                 " nifty resizing of splits
+" Plug 'ervandew/supertab'                      "use <Tab> for all your insert completion needs
+" Plug 'Xuyuanp/nerdtree-git-plugin'            "NERDTree showing git status flags
+" Plug 'Shougo/deoplete.nvim'                   "asynchronous keyword completion system for neovim
+
 
 call plug#end()
 
@@ -312,6 +322,11 @@ endif
 if empty(glob('~/.vim/colors/monokai.vim'))
   silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
 endif
+
+" Fonts
+" if empty(glob('~/.vim/colors/monokai.vim'))
+"   silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
+" endif
 
 
 " ------------------------------------------------------------------------------
