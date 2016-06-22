@@ -324,7 +324,7 @@ if empty(glob('~/.vim/colors/monokai.vim'))
 endif
 
 " Fonts
-if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf))
+if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf'))
   silent !curl -fLo ~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf
 endif
  
