@@ -333,7 +333,7 @@ if empty(glob('~/Library/Fonts/Sauce_Code_Light_Pro_Nerd_Font_Complete_Mono.ttf'
 endif
  
 if empty(glob('~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf'))
-  silent !curl -fLo "~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid\%20Sans\%20Mono\%20for\%20Powerline\%20Nerd\%20Font\%20Complete.otf
+  silent !curl -fLo ~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid\%20Sans\%20Mono\%20for\%20Powerline\%20Nerd\%20Font\%20Complete.otf
 endif
 
 " ------------------------------------------------------------------------------
