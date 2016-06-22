@@ -332,6 +332,9 @@ if empty(glob('~/Library/Fonts/Sauce_Code_Light_Pro_Nerd_Font_Complete_Mono.ttf'
   silent !curl -fLo ~/Library/Fonts/Sauce_Code_Pro_Light_Nerd_Font_Complete_Mono.ttf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/SourceCodePro/Light/complete/Sauce\%20Code\%20Pro\%20Light\%20Nerd\%20Font\%20Complete\%20Mono.ttf
 endif
  
+if empty(glob('~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf'))
+  silent !curl -fLo "~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid\%20Sans\%20Mono\%20for\%20Powerline\%20Nerd\%20Font\%20Complete.otf
+endif
 
 " ------------------------------------------------------------------------------
 " GUI Section
