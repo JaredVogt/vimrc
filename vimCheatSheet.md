@@ -28,5 +28,12 @@
 * `f`|`F`         - search forwards/search backwards
 * `cgn`           - use `/search` to find something, then `cgn` to replace... then `.` to apply elsewhere (cool part is that it changes substrings) `gn` is a motion meaning "select the next search match" - so cgn is replace the next search match
 * `q:`            - cmdwin mode - can see all previous commands and use normal/insert mode. When ready to execute, `ctrl-c` on the line you want to execute (normal behavior is `<cr>` but I have that mapped to insert new line)
+* `-`             - netrw: up a directory
+* `mb`            - netrw: bookmark directory
+* `gb`            - netrw: goto bookmarked directory
+* `p`             - netrw: preview
+* `<c-h>`	  - netrw: edit file hiding list
+* `gn`            - netrw: make top of tree the directory below the cursor (tree mode)
+* `~`             - netrw: got to home directory
 
-
+ 

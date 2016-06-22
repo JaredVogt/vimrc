@@ -3,7 +3,7 @@
 ## To do by hand
 Everything need to get vim going is embedded in vimrc. Open a document with vim and it will install vim-plug automatically
 
-1. `curl -O https://raw.githubusercontent.com/JaredVogt/vimrc/master/.vimrc`
+1. `curl -O https://raw.githubusercontent.com/JaredVogt/vimrc/master/.vimrc` (`-L` if using vimrc.serious.black url)
 2. run vim
 3. `:PlugInstall` to load all plugins
 
