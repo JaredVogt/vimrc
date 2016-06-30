@@ -25,6 +25,7 @@
 * `gt`            - to switch between tabs
 * `ctrl+o`        - to jump to previous location
 * `:set ft=x`     - set file type
+* `:recover`      - look at swp files (this doesn't seem to grab them all tho)
 * `f`|`F`         - search forwards/search backwards
 * `cgn`           - use `/search` to find something, then `cgn` to replace... then `.` to apply elsewhere (cool part is that it changes substrings) `gn` is a motion meaning "select the next search match" - so cgn is replace the next search match
 * `q:`            - cmdwin mode - can see all previous commands and use normal/insert mode. When ready to execute, `ctrl-c` on the line you want to execute (normal behavior is `<cr>` but I have that mapped to insert new line)
@@ -35,5 +36,7 @@
 * `<c-h>`	  - netrw: edit file hiding list
 * `gn`            - netrw: make top of tree the directory below the cursor (tree mode)
 * `~`             - netrw: got to home directory
+* `cs"'`          - vim-surround: replace `"` with `'`
+* `S"`            - vim-surround: surround visual selection with `"`
+* `ysiw]`         - vim-surround: put brackets around a word (iw is a text object)
 
- 

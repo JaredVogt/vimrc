@@ -16,19 +16,16 @@ Ok - some things I have try out after reading vim books
 - `:e *file*` or `:reg *file*` to open files for editing - there are some tricks to learn here tho - Wicked Cool Vim book
 - :CoffeeCompile let's you checkout the javascript out from a selected chunk of coffeescript
 - get that plugin that pops up contents of registers as a popup
-- trying out vim-NERDtree-tabs - but it is behaving wonky - will need to follow upk
 - what about using cmd+v to paste - just tried it... 
 - ctag support for coffeescript - have to add a config file with the CS regex definitions - can be done with .ctags in root of directory or perhaps ctags.conf per https://github.com/winstonwolff/ctags-javascript-coffeescript?
-- conditional mode for transparency - only apply if guivim - how to do
-- the autoloading NERDTree plugin IS messing up names... maybe take it out for now
 - have to use `\` to escape a `|` in a shell command (see <L>cheat)
 
 
 
 CTAGS
-- I used the regex from this project, https://github.com/winstonwolff/ctags-javascript-coffeescript/blob/master/ctags.conf
-- I put the contents of https://raw.githubusercontent.com/winstonwolff/ctags-javascript-coffeescript/master/ctags.conf in .ctags (maybe ctags recognizes ctag.conf as well - or perhaps that can be defined globally)
--
+- I used the regex from this project, https://github.com/winstonwolff/ctags-javascript-coffeescript/blob/master/ctags.conf (used it how??)
+- I put the contents of https://raw.githubusercontent.com/winstonwolff/ctags-javascript-coffeescript/master/ctags.conf in .ctags config file (maybe ctags recognizes ctag.conf as well - or perhaps that can be defined globally)
+- should this file be stored in vimrc and symlinked to $HOME?
 
 Navigating through code/files
 - exuberant ctags and vimtags - 
@@ -59,6 +56,23 @@ Holy cow this is a tough on to get all setup correctly. There are a handful of p
 You also have to grab the nerd fonts. `git clone https://github.com/ryanoasis/nerd-fonts`
 
 ### Random stuff
+
+Fonts can be named whatever you want in /Library/Fonts - Font Book gets the name from inside the Font definition - that is the name that has to be used in .vimrc.
+
+### $MYVIMRC and $MYGVIMRC
+
+It doesn't appear that macvim is picking up the variable $MVIMRC - so I am manually setting it in .vimrc (`let $MYVIMRC = "~/.vimrc"`), in the gui section (since is only an issue when running macvim). Also, of note... when setting it, the var name is `$MYVIMRC` - the $ is part of the name, not the way you access it later. Macvim will create `$MYGVIMRC` if there is a .gvimrc file (even it its empty). I added a line that sources both "rc" files when they are saved. 
+
+### Options as Variables
+
+You can read and set options as variables by using a special syntax. Run the following commands:
+
+:set textwidth=80
+:echo &textwidth
+
+Vim will display 80. Using an ampersand in front of a name tells Vim that you're referring to the option, not a variable that happens to have the same name.
+
+### Couple of things related to popups or displaying information...
 
 First section will open a file in a split - but the split doesn't have focus - so you can keep typing - what is easy toggle to shut it?
 ```

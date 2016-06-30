@@ -1,7 +1,3 @@
-"
-" NOTE: to source this file ':so %'
-" NOTE: reload vimrc for all files?
-" to load plugins ':PlugInstall'
 " symlink for use in neovim `ln -s ~/.vim ~/.config/nvim` and `ln -s ~/.vimrc ~/.config/nvim/init.vim`
 
 
@@ -59,8 +55,9 @@ syntax enable
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 
-colorscheme molokai_dark
-set background=dark
+colorscheme srcery
+" this is required to get true black background
+highlight Normal guibg=black  
 
 " tab settings
 set shiftwidth=2
@@ -69,8 +66,8 @@ set expandtab
 set smarttab                " insert tabs on the start of a line according to shiftwidth, not tabstop
 
 " setup the cross hairs
-hi CursorLine   cterm=NONE ctermbg=black guibg=#330000 guifg=white  "ctermfg=lightblue  this is option to above that overrides the colors on highlighted characters - disconcerting, but distinct
-hi CursorColumn cterm=NONE ctermbg=black guibg=#330000 guifg=white
+hi CursorLine   cterm=NONE ctermbg=black guibg=#330000          " guifg=white  ctermfg=lightblue  overrides the colors on highlighted characters - disconcerting, but distinct
+hi CursorColumn cterm=NONE ctermbg=black guibg=#330000 
 set cursorline cursorcolumn
 
 " but turn off cursor line with in insert
@@ -189,10 +186,10 @@ Plug 'Shougo/unite.vim'
 Plug 'ryanoasis/vim-devicons'                   " adds filetype glyphs (icons) to other plugins
 Plug 'ntpeters/vim-airline-colornum'            " sets info bar cursorline to same color as mode
 Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for commonly used ex commands
-Plug 'ivyl/vim-bling'                           " blink search highlight
 Plug 'henrik/vim-indexed-search'                " automatically prints - At match #N out of M matches
 Plug 'chrisbra/Recover.vim'                     " adds option for diff if a swp file is hanging around
 Plug 'tpope/vim-vinegar'                        " additional options for netrw
+Plug 'ivyl/vim-bling'                           " blink search highlight (loupe 'overrides' this)
 
 " Plugs to add
 " Plug 'mileszs/ack.vim'
@@ -200,8 +197,9 @@ Plug 'tpope/vim-vinegar'                        " additional options for netrw
 " Plug 'wincent/Command-T'
 
 " Plugs currently commented out
-" Plug 'jistr/vim-nerdtree-tabs'  " automatically open NERDTree in every tab (shutting off for now - driving me nuts)
+" Plug 'jistr/vim-nerdtree-tabs'                  " automatically open NERDTree in every tab (shutting off for now - driving me nuts)
 " Plug 'morhetz/gruvbox'
+" Plug 'wincent/loupe'                            " better search highlighting and defaults - see docs for details (knocks out vim-indexed-search which I like better)
 
 " Plugs to explore
 " Plug 'osyo-manga/vim-over'                    " preview replacements inline
@@ -209,9 +207,11 @@ Plug 'tpope/vim-vinegar'                        " additional options for netrw
 " Plug 'lfilho/cosco.vim'                       " semi colon automation/help
 " Plug 'mkitt/tabline.vim'                      " replace tabline at top
 " Plug 'zhaocai/GoldenView.Vim'                 " nifty resizing of splits
-" Plug 'ervandew/supertab'                      "use <Tab> for all your insert completion needs
-" Plug 'Xuyuanp/nerdtree-git-plugin'            "NERDTree showing git status flags
-" Plug 'Shougo/deoplete.nvim'                   "asynchronous keyword completion system for neovim
+" Plug 'ervandew/supertab'                      " use <Tab> for all your insert completion needs
+" Plug 'Xuyuanp/nerdtree-git-plugin'            " NERDTree showing git status flags
+" Plug 'Shougo/deoplete.nvim'                   " asynchronous keyword completion system for neovim
+" Plug 'vim-ctrlspace/vim-ctrlspace'            " whole way to operate in vim
+" Plug 'tpope/vim-repeat'                       " add `.` support for a bunch of plugins
 
 
 call plug#end()
@@ -228,6 +228,12 @@ nmap cc gcc
 
 " remap vim-commentary to be the same in visual mode, just quicker
 vmap cc gc
+
+" j/k/0/$ moves even for a wrapped lines
+nmap j gj
+nmap k gk
+nmap 0 g0
+nmap $ g$
 
 " default to working anywhere in a word
 map dw daw
@@ -323,23 +329,29 @@ if empty(glob('~/.vim/colors/monokai.vim'))
   silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
 endif
 
+if empty(glob('~/.vim/colors/srcery.vim'))
+  silent !curl -fLo ~/.vim/colors/srcery.vim --create-dirs https://raw.githubusercontent.com/roosta/srcery/master/colors/srcery.vim
+endif
+
 " Fonts
 if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf'))
   silent !curl -fLo ~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/SourceCodePro/Regular/complete/Sauce\%20Code\%20Pro\%20Nerd\%20Font\%20Complete\%20Mono.ttf
 endif
- 
+
 if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Light_Nerd_Font_Complete_Mono.ttf'))
   silent !curl -fLo ~/Library/Fonts/Sauce_Code_Pro_Light_Nerd_Font_Complete_Mono.ttf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/SourceCodePro/Light/complete/Sauce\%20Code\%20Pro\%20Light\%20Nerd\%20Font\%20Complete\%20Mono.ttf
 endif
- 
+
 if empty(glob('~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf'))
   silent !curl -fLo ~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid\%20Sans\%20Mono\%20for\%20Powerline\%20Nerd\%20Font\%20Complete.otf
 endif
+
 
 " ------------------------------------------------------------------------------
 " GUI Section
 " ------------------------------------------------------------------------------
 if has("gui_running")
+  let $MYVIMRC = "~/.vimrc"           " this is not set by macvim - so forcing the issue
   " These are the basic settings to get the font to work (required):
   set guifont=SauceCodePro\ Nerd\ Font:h13
   " set guifont=DroidSansMonoforPowerline\ Nerd\ Font:h13  "Chadwick declares this best programming font ever
@@ -347,7 +359,6 @@ if has("gui_running")
   " required if using https://github.com/bling/vim-airline
   let g:airline_powerline_fonts=1
   let g:airline_theme='powerlineish'
-  " set guifont=Source\ Code\ Pro\ for\ Powerline:h14
   set transparency=7      "only applicable to macvim, range 0-100
 endif
 
@@ -358,11 +369,11 @@ endif
 " <L>help - pop helpme.md in a browser
 nnoremap <Leader>help :!source $HOME/.bash_profile && popmd $PROJECT_HOME/helpdocs/helpme.md<cr>
 
-" <L>tips - show all <Leader> mappings
-nnoremap <Leader>bar :! more ~/.vimrc \| grep '<L>' \| sed -e "s/^.*<L>\(.*\)/\1/"<cr>
+" <L>bar - show all <Leader> mappings by grabbing them out of this file
+nnoremap <Leader>bar :! more ~/.vimrc \| grep '^" <L>' \| sed -e 's/^.*<L>\(.*\)/\1/'<cr>
 
 " <L>snips - all coffeescript snippets
-nnoremap <Leader>snips :! more ~/.vim/mySnips/jareds-coffee.snippets \| grep '^snippet'<cr>
+nnoremap <Leader>snips :! more ~/.vim/mySnips/jareds-coffee.snippets ~/.vim/mySnips/jareds-shell.snippets \| grep '^snippet'<cr>
 
 " <L>cheat - show vim shortcuts
 nnoremap <Leader>cheat :! more ~/.vim/vimCheatSheet.md<cr>
@@ -380,6 +391,13 @@ if empty(glob('~/.vim/initialized'))
 endif
 
 
+" ------------------------------------------------------------------------------
+" Source Section - source vimrc files on save
+" ------------------------------------------------------------------------------
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,.gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
 
 " ------------------------------------------------------------------------------
 " Insperation Section
