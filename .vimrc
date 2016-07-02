@@ -7,7 +7,7 @@
 " NOTE: https://github.com/junegunn/vim-plug/wiki/faq
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  au VimEnter * PlugInstall | source $MYVIMRC
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 
@@ -38,15 +38,16 @@ set incsearch               " show search matches as you type  NOTE: in sensible
 set ww=<,>,h,l              " wrap lines with movement keys
 "set list                    " show characters  FIXME: like to show trailing spaces but NOT newlines
 set wildmenu                " autocompletion  NOTE: in sensible
-au FocusLost * silent! wa   " Auto save buffers whenever you lose focus
+autocmd FocusLost * silent! wa   " Auto save buffers whenever you lose focus
 set autowriteall            " Auto save buffers when you switch context
 set lcs+=trail:·            " show trailing spaces
 set undofile                " Maintain undo history between sessions NOTE: requires path to be set
 set wildignore=node_modules/*
 set wildignore+=cs2js/*
+set wildignore+=*.swp,*.bak,*.pyc,*.class
 
 " Needed for Syntax Highlighting and stuff (NOTE: http://stackoverflow.com/questions/5602767/why-is-vim-not-detecting-my-coffescript-filetype)
-filetype on
+" filetype on
 filetype plugin on
 filetype indent on
 syntax enable
@@ -81,13 +82,13 @@ let NERDTreeIgnore=['\.DS_Store$', '.swp', 'sublime-workspace', 'sublime-project
 
 
 " automatic switching back to normal mode
-" au FocusLost * stopinsert   " switch back to normal on change of focus (FIXME: there is issue here... )
-au FocusLost * call feedkeys("\<C-\>\<C-n>")  " this looks like it might solve problem per http://stackoverflow.com/questions/2968548/vim-return-to-command-mode-when-focus-is-lost
+" autocmd FocusLost * stopinsert   " switch back to normal on change of focus (FIXME: there is issue here... )
+autocmd FocusLost * call feedkeys("\<C-\>\<C-n>")  " this looks like it might solve problem per http://stackoverflow.com/questions/2968548/vim-return-to-command-mode-when-focus-is-lost
 " set 'updatetime' to 15 seconds when in insert mode (for command below) - http://vim.wikia.com/wiki/To_switch_back_to_normal_mode_automatically_after_inaction
-au InsertEnter * let updaterestore=&updatetime | set updatetime=120000
-au InsertLeave * let &updatetime=updaterestore
+autocmd InsertEnter * let updaterestore=&updatetime | set updatetime=120000
+autocmd InsertLeave * let &updatetime=updaterestore
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
-au CursorHoldI * stopinsert
+autocmd CursorHoldI * stopinsert
 
 
 " ------------------------------------------------------------------------------
@@ -212,6 +213,7 @@ Plug 'ivyl/vim-bling'                           " blink search highlight (loupe 
 " Plug 'Shougo/deoplete.nvim'                   " asynchronous keyword completion system for neovim
 " Plug 'vim-ctrlspace/vim-ctrlspace'            " whole way to operate in vim
 " Plug 'tpope/vim-repeat'                       " add `.` support for a bunch of plugins
+" Plug 'Raimondi/delimitMate'                   " as an alternative to vim-surround
 
 
 call plug#end()
@@ -229,11 +231,11 @@ nmap cc gcc
 " remap vim-commentary to be the same in visual mode, just quicker
 vmap cc gc
 
-" j/k/0/$ moves even for a wrapped lines
-nmap j gj
-nmap k gk
+" j/k/0/$ moves even for a wrapped lines (updated with hint for use with relative line numbers - https://blog.petrzemek.net/2016/04/06/things-about-vim-i-wish-i-knew-earlier/)
 nmap 0 g0
 nmap $ g$
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " default to working anywhere in a word
 map dw daw
@@ -278,8 +280,8 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "this loads up snippets in ~/.vim/plugged/vim-snippets/UltiSnips/jareds-x.snippets and associates with x files
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "mySnips"]
-au FileType coffee UltiSnipsAddFiletypes jareds-coffee
-au FileType sh UltiSnipsAddFiletypes jareds-shell
+autocmd FileType coffee UltiSnipsAddFiletypes jareds-coffee
+autocmd FileType sh UltiSnipsAddFiletypes jareds-shell
 
 
 " ------------------------------------------------------------------------------
@@ -297,8 +299,8 @@ endif
 " ------------------------------------------------------------------------------
 " File Type Specific Section
 " ------------------------------------------------------------------------------
-au FileType markdown setlocal spell wrap linebreak nolist tw=0 wm=0
-au FileType text setlocal spell wrap linebreak nolist tw=0 wm=0
+autocmd FileType markdown setlocal spell wrap linebreak nolist tw=0 wm=0
+autocmd FileType text setlocal spell wrap linebreak nolist tw=0 wm=0
 
 
 " ------------------------------------------------------------------------------
@@ -395,8 +397,8 @@ endif
 " Source Section - source vimrc files on save
 " ------------------------------------------------------------------------------
 augroup myvimrc
-    au!
-    au BufWritePost .vimrc,.gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+    autocmd!
+    autocmd BufWritePost .vimrc,.gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
 " ------------------------------------------------------------------------------
