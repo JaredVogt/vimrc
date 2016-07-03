@@ -1,6 +1,5 @@
 " symlink for use in neovim `ln -s ~/.vim ~/.config/nvim` and `ln -s ~/.vimrc ~/.config/nvim/init.vim`
 
-
 " ------------------------------------------------------------------------------
 " Bootstrap Section - required files (vim-plug)
 " ------------------------------------------------------------------------------
@@ -9,7 +8,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
-
 
 " ------------------------------------------------------------------------------
 " Variable Section
@@ -58,7 +56,7 @@ let g:session_autoload = 'yes'
 
 colorscheme srcery
 " this is required to get true black background
-highlight Normal guibg=black  
+highlight Normal guibg=black
 
 " tab settings
 set shiftwidth=2
@@ -68,7 +66,7 @@ set smarttab                " insert tabs on the start of a line according to sh
 
 " setup the cross hairs
 hi CursorLine   cterm=NONE ctermbg=black guibg=#330000          " guifg=white  ctermfg=lightblue  overrides the colors on highlighted characters - disconcerting, but distinct
-hi CursorColumn cterm=NONE ctermbg=black guibg=#330000 
+hi CursorColumn cterm=NONE ctermbg=black guibg=#330000
 set cursorline cursorcolumn
 
 " but turn off cursor line with in insert
@@ -149,6 +147,13 @@ nnoremap <Leader>sbp :so ~/.vimrc<cr>
 " <L>p  - paste the yank register (NOTE: shouldn't this be a visual mapping? It works, but not sure why)
 nnoremap <Leader>p "0p
 
+" <L>o  - and type tab, will open wildmenu for current directory
+nnoremap <Leader>o :tabedit
+
+" <L>l  - visually select everything in last insert mode
+nnoremap <Leader>l v`]
+
+" <L>ls - list out all buffers
 " <L>ls - list out all buffers
 nnoremap <Leader>ls :ls<cr>
 
@@ -191,6 +196,8 @@ Plug 'henrik/vim-indexed-search'                " automatically prints - At matc
 Plug 'chrisbra/Recover.vim'                     " adds option for diff if a swp file is hanging around
 Plug 'tpope/vim-vinegar'                        " additional options for netrw
 Plug 'ivyl/vim-bling'                           " blink search highlight (loupe 'overrides' this)
+Plug 'godlygeek/csapprox'                       " Make gvim-only colorschemes work transparently in terminal vim
+Plug 'terryma/vim-expand-region'                " visually select increasingly larger regions of text
 
 " Plugs to add
 " Plug 'mileszs/ack.vim'
@@ -214,6 +221,7 @@ Plug 'ivyl/vim-bling'                           " blink search highlight (loupe 
 " Plug 'vim-ctrlspace/vim-ctrlspace'            " whole way to operate in vim
 " Plug 'tpope/vim-repeat'                       " add `.` support for a bunch of plugins
 " Plug 'Raimondi/delimitMate'                   " as an alternative to vim-surround
+" Plug 'vim-scripts/taglist'                    " provides an overview of the structure of source code files (most downloaded plugin for vim)
 
 
 call plug#end()
@@ -241,7 +249,7 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 map dw daw
 map cw ciw
 
-"saner n, N - https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+" saner n, N - https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 " TODO: map ; to n for use with find
@@ -267,8 +275,12 @@ nnoremap t7  :tabn 7<CR>
 nnoremap t8  :tabn 8<CR>
 nnoremap t9  :tabn 9<CR>
 
-"newline on return in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
+" newline on return in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nmap <CR> O<Esc>
+
+" shortcut to expand visual selection by repeatedly hitting v (https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/)
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 
 " ------------------------------------------------------------------------------
@@ -415,4 +427,9 @@ augroup END
 " https://srackham.wordpress.com/2011/10/20/compiling-coffeescript-with-vim/
 
 
+
+
+
+
+" ------------------------------------------------------------------------------
 
