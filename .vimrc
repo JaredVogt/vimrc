@@ -1,4 +1,4 @@
-" symlink for use in neovim `ln -s ~/.vim ~/.config/nvim` and `ln -s ~/.vimrc ~/.config/nvim/init.vim`
+" isymlink for use in neovim `ln -s ~/.vim ~/.config/nvim` and `ln -s ~/.vimrc ~/.config/nvim/init.vim`
 
 " ------------------------------------------------------------------------------
 " Bootstrap Section - required files (vim-plug)
@@ -25,9 +25,11 @@ set undolevels=1000         " use many muchos levels of undo
 set visualbell              " don't beep
 set noerrorbells            " don't beep
 set nocompatible            " Necessary for lots of cool vim things
+set switchbuf=usetab        " If opening buffer, search first in opened windows
 set showcmd                 " show what my commands are
 set relativenumber          " NOTE: `set nornu` to turn off
-set nu                      " this shows you the current line number in relative mode
+set number                  " this shows you the current line number in relative mode
+set scrolloff=6             " keep at least 6 lines top/bottom while scrolling
 set clipboard=unnamed       " yank to system clipboard
 set ignorecase              " ignore case when searching
 set smartcase               " ignore case if search pattern is all lowercase, case-sensitive otherwise
@@ -98,8 +100,13 @@ set directory=~/.vim/swp//
 set backupdir=~/.vim/swp//
 
 " Set undo directory
-silent! call mkdir($HOME . '/.vim/undodir', 'p')
-set undodir=~/.vim/undodir  " Need to make sure this directory exists (http://www.electricmonk.nl/log/2012/07/26/persistent-undo-history-in-vim/)
+silent! call mkdir($HOME . '/.vim/undo', 'p')
+set undodir=~/.vim/undo  " Need to make sure this directory exists (http://www.electricmonk.nl/log/2012/07/26/persistent-undo-history-in-vim/)
+
+
+" Set backup directory
+silent! call mkdir($HOME . '/.vim/backup', 'p')
+set backupdir=~/.vim/backup  " Need to make sure this directory exists (http://www.electricmonk.nl/log/2012/07/26/persistent-undo-history-in-vim/)
 
 
 " ------------------------------------------------------------------------------
@@ -108,60 +115,64 @@ set undodir=~/.vim/undodir  " Need to make sure this directory exists (http://ww
 " use spacebar for leader!!!
 let mapleader = "\<Space>"
 
-" <L>c  - turn cursor lines on/off
+" <L>c        - turn cursor lines on/off
 nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
-" <L>q  - ever so slightly faster quit command
+" <L>q        - ever so slightly faster quit command
 nnoremap <Leader>q :q<CR>
 
-" <L>q!  - ever so slightly faster quit command w/! override (this is dangerous, will make this something that requires attention)
+"" <L>q!         - ever so slightly faster quit command w/! override (this is dangerous, will make this something that requires attention)
 " nnoremap <Leader>yq :q!<CR>
 
-" <L>w  - ever so slightly faster write command
+" <L>w        - ever so slightly faster write command
 nnoremap <Leader>w :w<CR>
 
-" <L>x  - ever so slightly faster x command
+" <L>x        - ever so slightly faster x command
 nnoremap <Leader>x :x<CR>
 
-" <L>snip  - Edit my coffeescript snippets
+" <L>snip     - Edit my coffeescript snippets
 nnoremap <leader>snip :e ~/.vim/mySnips/jareds-coffee.snippets<cr>
 
-" <L>ev  - Edit active .vimrc FIXME: this should use $MYVIMRC
+" <L>ev       - Edit active .vimrc FIXME: this should use $MYVIMRC
 nnoremap <leader>ev :e ~/.vimrc<cr>
 
-" <L>vimrc  - Edit my git repo vimrc
+" <L>vimrc    - Edit my git repo vimrc
 nnoremap <leader>vimrc :tabedit ~/projects/vimrc/.vimrc<cr>
 
-" <L>d  - show/hide NerdTree
+" <L>d        - show/hide NerdTree
 nnoremap <leader>d :Texplore<cr>
 
-" <L>reg  - see contents of all registers
+" <L>reg      - see contents of all registers
 nnoremap <leader>reg :reg<cr>
 
-" <L>r  - select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
+" <L>r        - select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
-" <L>sbp  - source .vimrc
+" <L>sbp      - source .vimrc
 nnoremap <Leader>sbp :so ~/.vimrc<cr>
 
-" <L>p  - paste the yank register (NOTE: shouldn't this be a visual mapping? It works, but not sure why)
+" <L>p        - paste the yank register (NOTE: shouldn't this be a visual mapping? It works, but not sure why)
 nnoremap <Leader>p "0p
 
-" <L>o  - and type tab, will open wildmenu for current directory
+" <L>o        - and type tab, will open wildmenu for current directory
 nnoremap <Leader>o :tabedit
 
-" <L>l  - visually select everything in last insert mode
-nnoremap <Leader>l v`]
+" <L>l        - visually select everything in last insert mode
+" FIXME: how do I use a leader key to map to a mode? Currently, the leader mapping doesn't work
+nmap <Leader>l gV
+nmap gV `[v`]
 
-" <L>ls - list out all buffers
-" <L>ls - list out all buffers
+" <L>ls       - list out all buffers
 nnoremap <Leader>ls :ls<cr>
 
-" <L>f - ctrl+w to jump around splits (or "frames")
+" <L>f        - ctrl+w to jump around splits (or "frames")
 nnoremap <Leader>f <C-w>
 
-" <L>paste - toggle paste mode to paste without autoindent
+" <L>paste    - toggle paste mode to paste without autoindent
 nnoremap <Leader>paste :set pastetoggle<cr>
+
+" <L>;        - jump back to last edit `g;`
+nnoremap <Leader>; g;
 
 
 " ------------------------------------------------------------------------------
@@ -198,6 +209,7 @@ Plug 'tpope/vim-vinegar'                        " additional options for netrw
 Plug 'ivyl/vim-bling'                           " blink search highlight (loupe 'overrides' this)
 Plug 'godlygeek/csapprox'                       " Make gvim-only colorschemes work transparently in terminal vim
 Plug 'terryma/vim-expand-region'                " visually select increasingly larger regions of text
+Plug 'tpope/vim-endwise'                        " adding matching end after if, do, def and several other keywords for various languages (including bash)
 
 " Plugs to add
 " Plug 'mileszs/ack.vim'
@@ -278,7 +290,7 @@ nnoremap t9  :tabn 9<CR>
 " newline on return in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nmap <CR> O<Esc>
 
-" shortcut to expand visual selection by repeatedly hitting v (https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/)
+" shortcut to expand visual selection by repeatedly hitting v, character, word, paragraph (https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/)
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
@@ -380,19 +392,19 @@ endif
 " ------------------------------------------------------------------------------
 " Random Commands Section
 " ------------------------------------------------------------------------------
-" <L>help - pop helpme.md in a browser
+" <L>help     - pop helpme.md in a browser
 nnoremap <Leader>help :!source $HOME/.bash_profile && popmd $PROJECT_HOME/helpdocs/helpme.md<cr>
 
-" <L>bar - show all <Leader> mappings by grabbing them out of this file
+" <L>bar      - show all <Leader> mappings by grabbing them out of this file
 nnoremap <Leader>bar :! more ~/.vimrc \| grep '^" <L>' \| sed -e 's/^.*<L>\(.*\)/\1/'<cr>
 
-" <L>snips - all coffeescript snippets
+" <L>snips    - all coffeescript snippets
 nnoremap <Leader>snips :! more ~/.vim/mySnips/jareds-coffee.snippets ~/.vim/mySnips/jareds-shell.snippets \| grep '^snippet'<cr>
 
-" <L>cheat - show vim shortcuts
+" <L>cheat    - show vim shortcuts
 nnoremap <Leader>cheat :! more ~/.vim/vimCheatSheet.md<cr>
 
-" <L>reload - copy repo .vimrc to active .vimrc
+" <L>reload   - copy repo .vimrc to active .vimrc
 nnoremap <Leader>reload :!cp ~/projects/vimrc/.vimrc ~/.vimrc
 
 
@@ -411,6 +423,7 @@ endif
 augroup myvimrc
     autocmd!
     autocmd BufWritePost .vimrc,.gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+    :echo "Sourced rc files"
 augroup END
 
 " ------------------------------------------------------------------------------
@@ -426,10 +439,4 @@ augroup END
 " http://esa-matti.suuronen.org/blog/2011/11/28/how-to-write-coffeescript-efficiently/
 " https://srackham.wordpress.com/2011/10/20/compiling-coffeescript-with-vim/
 
-
-
-
-
-
-" ------------------------------------------------------------------------------
 
