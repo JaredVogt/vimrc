@@ -18,7 +18,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1  "https://medium.com/@ericclifford/neovim-item
 " ------------------------------------------------------------------------------
 " Basic settings Section
 " ------------------------------------------------------------------------------
-
 set timeout timeoutlen=3000 ttimeoutlen=1000  " a little more time to complete Leader sequences
 set history=1000            " remember more commands and search history
 set undolevels=1000         " use many muchos levels of undo
@@ -324,6 +323,12 @@ augroup commandlinewindow
   autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 augroup END
 
+
+" ------------------------------------------------------------------------------
+" shell Section
+" ------------------------------------------------------------------------------
+set shell=/usr/local/bin/bash\ --rcfile\ ~/.bash_profile
+let $BASH_ENV = "~/.config/MyAliases"
 
 " ------------------------------------------------------------------------------
 " UltiSnips Section
