@@ -1,4 +1,4 @@
-" isymlink for use in neovim `ln -s ~/.vim ~/.config/nvim` and `ln -s ~/.vimrc ~/.config/nvim/init.vim`
+" symlink for use in neovim `ln -s ~/.vim ~/.config/nvim` and `ln -s ~/.vimrc ~/.config/nvim/init.vim`
 
 " ------------------------------------------------------------------------------
 " Bootstrap Section - required files (vim-plug)
@@ -293,6 +293,9 @@ nmap <CR> O<Esc>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
+" use ctrl+v to paste primary register in insert mode
+imap <C-v> <C-r>*
+
 
 " ------------------------------------------------------------------------------
 " cmdline section - default to command window for cmdline mode
@@ -421,6 +424,7 @@ if has("gui_running")
   let g:airline_powerline_fonts=1
   let g:airline_theme='powerlineish'
   set transparency=7      "only applicable to macvim, range 0-100
+  set lines=999 columns=9999  " set window to largest size
 endif
 
 
