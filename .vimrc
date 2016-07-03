@@ -296,6 +296,36 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 
 " ------------------------------------------------------------------------------
+" cmdline section - default to command window for cmdline mode
+" ------------------------------------------------------------------------------
+"  default to opening command window
+execute "nnoremap : :" . &cedit . "a"
+execute "xnoremap : :" . &cedit . "a"
+execute "nnoremap / /" . &cedit . "a"
+execute "xnoremap / /" . &cedit . "a"
+execute "nnoremap ? ?" . &cedit . "a"
+execute "xnoremap ? ?" . &cedit . "a"
+
+" access cmdline by appending with q
+nnoremap q: :
+xnoremap q: :
+nnoremap q/ /
+xnoremap q/ /
+nnoremap q? ?
+xnoremap q? ?
+
+" enable <esc> for command window
+autocmd CmdwinEnter * nnoremap <buffer> <esc> :q<cr>
+
+" override "new line" on <CR> in normal mode (from http://stackoverflow.com/questions/24599217/remap-enter-in-normal-mode-but-not-in-command-line)
+augroup commandlinewindow
+  autocmd!
+  autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+  autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+augroup END
+
+
+" ------------------------------------------------------------------------------
 " UltiSnips Section
 " ------------------------------------------------------------------------------
 let g:UltiSnipsExpandTrigger="<tab>"
