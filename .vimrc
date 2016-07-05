@@ -457,6 +457,15 @@ endif
 
 
 " ------------------------------------------------------------------------------
+" Spell Section - everything related to spelling
+" ------------------------------------------------------------------------------
+if empty(glob('~/.vim/spell/en.utf-8.add'))
+  silent !curl -fLo ~/.vim/spell/en.utf-8.add --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/spell/en.utf-8.add
+endif
+set spellfile=~/.vim/spell/en.utf-8.add
+
+
+" ------------------------------------------------------------------------------
 " Source Section - source vimrc files on save
 " ------------------------------------------------------------------------------
 augroup myvimrc
