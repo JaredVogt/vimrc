@@ -11,6 +11,7 @@ y|Y) # yes
     ln -sf $currentDir/.vimrc ~/.vimrc
     ln -sf $currentDir/.gvimrc ~/.gvimrc
     ln -sf $currentDir/vimCheatSheet.md ~/.vim/vimCheatSheet.md
+    ln -sf $currentDir/spell/en.utf-8.add ~/.vim/spell/en.utf-8.add
     echo -e "\nexecuting"
     ;;
 n|N) # no
@@ -23,4 +24,4 @@ n|N) # no
     ;;
 esac
 
-
+# TODO: add a command to clear all of these files befor creating the links. This would allow one to link to vimrc project after the fact. 

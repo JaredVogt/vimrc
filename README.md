@@ -4,7 +4,7 @@
 Everything need to get vim going is embedded in vimrc. Run vim and it will install vim-plug automatically
 
 1. `curl -L https://raw.githubusercontent.com/JaredVogt/vimrc/master/.vimrc >> .vimrc` (`-L` if using vimrc.serious.black url)
-2. `vim`
+2. Run `vim` (or macvim) and it will install plugs and get you rolling
 
 ## OSX
 To get the latest version of vim - grab brew

@@ -184,7 +184,7 @@ Plug 'SirVer/ultisnips'
 Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sensible'                       " FIXME: incorporate settings directly into .vimrc to avoid duplicates - https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
