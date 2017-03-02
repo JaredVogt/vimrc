@@ -39,6 +39,7 @@
 * `~`               - netrw: got to home directory
 * `cs"'`            - vim-surround: replace `"` with `'`
 * `S"`              - vim-surround: surround visual selection with `"`
+* `S)`              - vim-surround: surround visual selection with `()`, no space `S(` for space
 * `ysiw]`           - vim-surround: put brackets around a word (iw is a text object)
 
 ### Additional options
