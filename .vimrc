@@ -138,8 +138,9 @@ nnoremap <leader>ev :e ~/.vimrc<cr>
 " <L>vimrc    - Edit my git repo vimrc
 nnoremap <leader>vimrc :tabedit ~/projects/vimrc/.vimrc<cr>
 
-" <L>d        - show/hide NerdTree
-nnoremap <leader>d :Texplore<cr>
+" <L>d        - show/hide NerdTree (netrw)
+" nnoremap <leader>d :Texplore<cr>
+nnoremap <leader>d :Explore<cr>
 
 " <L>reg      - see contents of all registers
 nnoremap <leader>reg :reg<cr>
@@ -187,24 +188,24 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'                       " FIXME: incorporate settings directly into .vimrc to avoid duplicates - https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/syntastic'
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'kchmck/vim-coffee-script'
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
-Plug 'xolox/vim-misc'                           " contains Vim scripts for other xolox plugins
-Plug 'xolox/vim-session'
+" Plug 'xolox/vim-misc'                           " contains Vim scripts for other xolox plugins
+" Plug 'xolox/vim-session'
 Plug 'Shougo/unite.vim'
-Plug 'ryanoasis/vim-devicons'                   " adds filetype glyphs (icons) to other plugins
-Plug 'ntpeters/vim-airline-colornum'            " sets info bar cursorline to same color as mode
-Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for commonly used ex commands
-Plug 'henrik/vim-indexed-search'                " automatically prints - At match #N out of M matches
-Plug 'chrisbra/Recover.vim'                     " adds option for diff if a swp file is hanging around
-Plug 'tpope/vim-vinegar'                        " additional options for netrw
+" Plug 'ryanoasis/vim-devicons'                   " adds filetype glyphs (icons) to other plugins
+" Plug 'ntpeters/vim-airline-colornum'            " sets info bar cursorline to same color as mode
+" Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for commonly used ex commands
+" Plug 'henrik/vim-indexed-search'                " automatically prints - At match #N out of M matches
+" Plug 'chrisbra/Recover.vim'                     " adds option for diff if a swp file is hanging around
+" Plug 'tpope/vim-vinegar'                        " additional options for netrw
 Plug 'ivyl/vim-bling'                           " blink search highlight (loupe 'overrides' this)
 Plug 'godlygeek/csapprox'                       " Make gvim-only colorschemes work transparently in terminal vim
 Plug 'terryma/vim-expand-region'                " visually select increasingly larger regions of text
@@ -226,7 +227,7 @@ Plug 'tpope/vim-endwise'                        " adding matching end after if, 
 " Plug 'lfilho/cosco.vim'                       " semi colon automation/help
 " Plug 'mkitt/tabline.vim'                      " replace tabline at top
 " Plug 'zhaocai/GoldenView.Vim'                 " nifty resizing of splits
-" Plug 'ervandew/supertab'                      " use <Tab> for all your insert completion needs
+Plug 'ervandew/supertab'                      " use <Tab> for all your insert completion needs
 " Plug 'Xuyuanp/nerdtree-git-plugin'            " NERDTree showing git status flags
 " Plug 'Shougo/deoplete.nvim'                   " asynchronous keyword completion system for neovim
 " Plug 'vim-ctrlspace/vim-ctrlspace'            " whole way to operate in vim
@@ -276,6 +277,7 @@ nnoremap tm  :tabm<Space>
 nnoremap tn  :tabnew<CR>
 nnoremap tt  :tabedit<Space>
 
+
 nnoremap t1  :tabn 1<CR>
 nnoremap t2  :tabn 2<CR>
 nnoremap t3  :tabn 3<CR>
@@ -285,6 +287,7 @@ nnoremap t6  :tabn 6<CR>
 nnoremap t7  :tabn 7<CR>
 nnoremap t8  :tabn 8<CR>
 nnoremap t9  :tabn 9<CR>
+" NOTE Keyboard Maestro shortcut for tabbing opt+tab is mapped to cmd+shift+]
 
 " newline on return in normal mode - http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nmap <CR> O<Esc>
@@ -417,8 +420,8 @@ endif
 if has("gui_running")
   let $MYVIMRC = "~/.vimrc"           " this is not set by macvim - so forcing the issue
   " These are the basic settings to get the font to work (required):
-  set guifont=SauceCodePro\ Nerd\ Font:h13
-  " set guifont=DroidSansMonoforPowerline\ Nerd\ Font:h13  "Chadwick declares this best programming font ever
+  set guifont=SauceCodePro\ Nerd\ Font:h14
+  " set guifont=DroidSansMonoforPowerline\ Nerd\ Font:h14  "Chadwick declares this best programming font ever
   set encoding=utf-8
   " required if using https://github.com/bling/vim-airline
   let g:airline_powerline_fonts=1
@@ -486,5 +489,3 @@ augroup END
 " https://github.com/kchmck/vim-coffee-script#compile-to-javascript
 " http://esa-matti.suuronen.org/blog/2011/11/28/how-to-write-coffeescript-efficiently/
 " https://srackham.wordpress.com/2011/10/20/compiling-coffeescript-with-vim/
-
-
