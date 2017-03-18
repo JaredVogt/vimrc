@@ -1,3 +1,4 @@
+# Access this with <leader>cheat
 # All Cheats
 
 * `shift+>`|`==`    - indent
@@ -18,6 +19,7 @@
 * `)` and `(`       - backwards/fowards by sentances (hops whitespaces)
 * `gv`              - reselect last selection
 * `<L><L>w`         - open easymotion
+* `ctrl+v`          - visual block mode!
 * `ci"`             - replace inside `"` (this can also be `{/}/[/]` etc)
 * `*, cw, n, .`     - put word under cursor in register, change it, use `n` to jump to next instance and `.` if you want to repeat the change
 * `ctrl-r`,`0`      - paste in "insert" mode (from register 0)

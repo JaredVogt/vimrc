@@ -1,24 +1,30 @@
 # My personal coffeescript snippets
 # `b` designates that it must match at the beginning of a line
 
-snippet jp "console.log"
+snippet jfunc "cs: new function"
+${2:name} = (${3:var}) ->
+  # ${1:description}
+  $0
+endsnippet
+
+snippet jp "cs: console.log"
 console.log ${1:printWhat?}
 ${0:keep rolling}
 endsnippet
 
-snippet jcomm "comment block" b
+snippet jcomm "cs: comment block" b
 ################################
 # ${1:Enter your comment}
 ################################
 $0
 endsnippet
 
-snippet netrc "netrc block" b
+snippet netrc "cs: netrc block" b
 [login, account, password] = netrc().['${1:service}']
 $0
 endsnippet
 
-snippet jyarg "Insert a yargs block" b
+snippet jyarg "cs: Insert a yargs block" b
 usage = """${1:Put in a description}
 """
 argv = require('yargs')
@@ -31,7 +37,7 @@ argv = require('yargs')
 ${0:and on to the next thing}
 endsnippet
 
-snippet jreq "All my requires" b
+snippet jreq "cs: All my requires" b
 netrc = require 'netrc'
 moment = require 'moment'
 fs = require 'fs'
@@ -40,15 +46,15 @@ redis = require('promise-redis')()
 
 endsnippet
 
-snippet jprom "Promise block"
+snippet jprom "cs: Promise block"
 # to do
 endsnippet
 
-snippet jpromall "Promiseall block"
+snippet jpromall "cs: Promiseall block"
 # to do
 endsnippet
 
-snippet jspawn "spawn block" b
+snippet jspawn "cs: spawn block" b
 contents = ''
 spawn ${1:command}, [${2:arg1}], ${3:options}  # cmd, args, opts
 .stdout
@@ -58,7 +64,7 @@ spawn ${1:command}, [${2:arg1}], ${3:options}  # cmd, args, opts
 $0
 endsnippet
 
-snippet jread "readFileSync"
+snippet jread "cs: readFileSync"
 fs = require "fs"
 contents = fs.readFileSync ${1:filename}, 'utf8'
 

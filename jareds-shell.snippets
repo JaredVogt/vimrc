@@ -1,18 +1,18 @@
 # My personal shell snippets
 
-snippet hashbang "Setup hashbang with env" b
+snippet hashbang "sh: Setup hashbang with env" b
 #!/usr/bin/env bash
 
 endsnippet
 
-snippet jregex "Regex block"
+snippet jregex "sh: Regex block"
 STRING=${1:String to search}
 [[ $STRING =~ ${2:Ex.(.*)an(.*)\.} ]]  # this is the syntax indicating that you want to do a match… it gets saved into BASH_REMATCH
 echo "First match: (${BASH_REMATCH[1]}), Second match: (${BASH_REMATCH[2]})"
 
 endsnippet
 
-snippet jcase "Case statement"
+snippet jcase "sh: Case statement"
 function getRank {
   read -p "Your Prompt" -srn1 INPUT  # silent, -n1 eq single character
   case "$INPUT" in
@@ -37,14 +37,14 @@ echo "You pressed: $result"
 
 endsnippet
 
-snippet jassoc "Text into an associative array"
+snippet jassoc "sh: Text into an associative array"
 RESPONSE=$(externalCommand)  # externalCommand returns stringified json
 eval ASSOC_ARRAY=($RESPONSE)  # this will parse the returned string into a bash associative array
 echo “${ASSOC_ARRAY[someKey]}”  # this would access the key someKey in the array (presuming its there)
 
 endsnippet
 
-snippet jargs "args/flags for shell"
+snippet jargs "sh: args/flags for shell"
 if [[ -z "$1" || -z "$2" ]]
   then
     echo 'This script requires two arguements.'
@@ -58,7 +58,7 @@ fi
 # this is just a quick and dirty example. in this case, the values have to be in the right order, or they will be assigned to the wrong variable. Using flags, eg “-x value” would fix that.
 endsnippet
 
-snippet jif "if/else statement"
+snippet jif "sh: if/else statement"
 num=1
 if [ num > 0 ]
   then
@@ -72,7 +72,7 @@ fi
 
 endsnippet
 
-snippet jfunc "function"
+snippet jfunc "sh: function"
 function myfunc {
   echo $1  # to get the first variable passed in  ls  # do something, like ls ;-)
   return 0  # return code}
@@ -86,9 +86,21 @@ echo $?  # this will show you the return code from the preceeding called functi
 
 endsnippet
 
-snippet jslack "post to slack"
+snippet jslack "sh: post to slack"
 # FIXME: this is likely very broken
 KEY='insert key'
 curl -X POST -vv --data-urlencode 'payload={"text": "This is posted to general and comes from *monkey-bot*.", "username": "monkey-bot", "icon_emoji": ":monkey_face:"}' https://hooks.slack.com/services/$KEY
 
 endsnippet
+
+snippet jarray "sh: array"
+declare -a arrayname=(
+item1
+item2
+)
+for item in "${arrayname[@]}"; 
+  do echo "$dotfile"; 
+done
+endsnippet
+
+

@@ -5,6 +5,8 @@
 currentDir=$(pwd)
 
 echo "If have a local copy of the vimrc repo, use this to symlink to repo files. Warning: existing files will be replaced."
+echo "FIXME this should check and see if the files are different before overwrite - warning!"
+echo "run a diff on all included files - for now I removed the overwrite flag"
 read -p "Do you want to continue? y/n: " -srn1 INPUT
 case "$INPUT" in
 y|Y) # yes
@@ -12,6 +14,8 @@ y|Y) # yes
     ln -sf $currentDir/.gvimrc ~/.gvimrc
     ln -sf $currentDir/vimCheatSheet.md ~/.vim/vimCheatSheet.md
     ln -sf $currentDir/spell/en.utf-8.add ~/.vim/spell/en.utf-8.add
+    ln -sf $currentDir/jareds-coffee.snippets ~/.vim/mySnips/.
+    ln -sf $currentDir/jareds-shell.snippets ~/.vim/mySnips/.
     echo -e "\nexecuting"
     ;;
 n|N) # no
