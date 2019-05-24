@@ -47,7 +47,7 @@ endsnippet
 snippet jargs "sh: args/flags for shell"
 if [[ -z "$1" || -z "$2" ]]
   then
-    echo 'This script requires two arguements.'
+    echo 'This script requires two arguments.'
     echo 'name.sh [flag1] [flag2]'
     exit
   else
@@ -61,28 +61,32 @@ endsnippet
 snippet jif "sh: if/else statement"
 num=1
 if [ num > 0 ]
-  then
-    echo 'first item is bigger than second'
+  then
+    echo 'first item is bigger than second'
 elif [ num == 1 ]
-  then
-    echo 'first equals second'
+  then
+    echo 'first equals second'
 else
-  echo 'neither of the first two cases is true'
+  echo 'neither of the first two cases is true'
 fi
 
 endsnippet
 
 snippet jfunc "sh: function"
-function myfunc {
-  echo $1  # to get the first variable passed in  ls  # do something, like ls ;-)
-  return 0  # return code}
+function myFunc {
+  echo \$1
+  return 0
 }
 
-myfunc var1  # to call the function and pass in var1
-funcResponse=$(myfunc "print this")  # this will except what ever is returned from func and save it to funcResponse
+funcResponse=$(myFunc "print this")  # call myFunc and pass in a var
 echo $funcResponse
 echo $?  # this will show you the return code from the preceeding called function
 # http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-8.html
+
+endsnippet
+
+snippet jbang "sh: pop in a shebang"
+#!/usr/bin/env bash
 
 endsnippet
 

@@ -18,7 +18,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1  "https://medium.com/@ericclifford/neovim-item
 " ------------------------------------------------------------------------------
 " Basic settings Section
 " ------------------------------------------------------------------------------
-set timeout timeoutlen=3000 ttimeoutlen=1000  " a little more time to complete Leader sequences
+set timeout timeoutlen=2000 ttimeoutlen=1000  " a little more time to complete Leader sequences
 set history=1000            " remember more commands and search history
 set undolevels=1000         " use many muchos levels of undo
 set visualbell              " don't beep
@@ -33,6 +33,7 @@ set clipboard=unnamed       " yank to system clipboard
 set ignorecase              " ignore case when searching
 set smartcase               " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set hlsearch                " highlight search terms  NOTE: in sensible
+set splitright              " :vsp will open split on the right side
 set incsearch               " show search matches as you type  NOTE: in sensible
 set ww=<,>,h,l              " wrap lines with movement keys
 "set list                    " show characters  FIXME: like to show trailing spaces but NOT newlines
@@ -44,6 +45,9 @@ set undofile                " Maintain undo history between sessions NOTE: requi
 set wildignore=node_modules/*
 set wildignore+=cs2js/*
 set wildignore+=*.swp,*.bak,*.pyc,*.class
+
+" if no filetype specified, set ft=markdown
+autocmd BufEnter * if &filetype == "" | setlocal ft=markdown | endif
 
 " Needed for Syntax Highlighting and stuff (NOTE: http://stackoverflow.com/questions/5602767/why-is-vim-not-detecting-my-coffescript-filetype)
 " filetype on
@@ -79,6 +83,8 @@ let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 let NERDTreeIgnore=['\.DS_Store$', '.swp', 'sublime-workspace', 'sublime-project']
 
+" ale settings 
+let g:ale_sign_column_always = 1
 
 " automatic switching back to normal mode
 " autocmd FocusLost * stopinsert   " switch back to normal on change of focus (FIXME: there is issue here... )
@@ -132,6 +138,9 @@ nnoremap <Leader>x :x<CR>
 " <L>snip     - Edit my coffeescript snippets
 nnoremap <leader>snip :e ~/.vim/mySnips/jareds-coffee.snippets<cr>
 
+" <L>shell    - Open up snippets in split 
+nnoremap <leader>shell :vsp ~/.vim/mySnips/more-shell.snippets<cr>
+
 " <L>ev       - Edit active .vimrc FIXME: this should use $MYVIMRC
 nnoremap <leader>ev :e ~/.vimrc<cr>
 
@@ -139,14 +148,17 @@ nnoremap <leader>ev :e ~/.vimrc<cr>
 nnoremap <leader>vimrc :tabedit ~/projects/vimrc/.vimrc<cr>
 
 " <L>d        - show/hide NerdTree (netrw)
-" nnoremap <leader>d :Texplore<cr>
-nnoremap <leader>d :Explore<cr>
+" nnoremap <leader>d :Texplore<cr>  "netrw
+nnoremap <leader>d :vs.<cr>
 
 " <L>reg      - see contents of all registers
 nnoremap <leader>reg :reg<cr>
 
-" <L>r        - select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+" <L>s        - suggest spelling 
+nnoremap <leader>s z=
+
+"" <L>u        - select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
+nnoremap <Leader>u :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 " <L>sbp      - source .vimrc
 nnoremap <Leader>sbp :so ~/.vimrc<cr>
@@ -174,32 +186,41 @@ nnoremap <Leader>paste :set pastetoggle<cr>
 " <L>;        - jump back to last edit `g;`
 nnoremap <Leader>; g;
 
-
+" turn off search highlight
+nnoremap <leader>, :nohlsearch<CR>
+"
+" vertical split fuzzy search
+nnoremap <leader>v :vsp **/*
+"" :vsp **/*"
+"
 " ------------------------------------------------------------------------------
 " Call vim-plug Section
 " ------------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')  "https://github.com/junegunn/vim-plug
 
 Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'                       " FIXME: incorporate settings directly into .vimrc to avoid duplicates - https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'kchmck/vim-coffee-script'
-" Plug 'majutsushi/tagbar'
+Plug 'haya14busa/incsearch.vim'
+" Plug 'w0rp/ale'
+Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
 " Plug 'xolox/vim-misc'                           " contains Vim scripts for other xolox plugins
 " Plug 'xolox/vim-session'
 Plug 'Shougo/unite.vim'
+Plug 'tpope/vim-markdown'                       " TODO: is this working? Need to add support for fenced languages - check this first
 " Plug 'ryanoasis/vim-devicons'                   " adds filetype glyphs (icons) to other plugins
 " Plug 'ntpeters/vim-airline-colornum'            " sets info bar cursorline to same color as mode
 " Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for commonly used ex commands
@@ -222,6 +243,8 @@ Plug 'tpope/vim-endwise'                        " adding matching end after if, 
 " Plug 'wincent/loupe'                            " better search highlighting and defaults - see docs for details (knocks out vim-indexed-search which I like better)
 
 " Plugs to explore
+" Plug 'sjl/gundo.vim'                          " visually view undo tree
+" Plug 'mattn/gist-vim'                         " create gits from register or visual selection
 " Plug 'osyo-manga/vim-over'                    " preview replacements inline
 " Plug 'othree/yajs.vim'                        " Yet Another JavaScript Syntax
 " Plug 'lfilho/cosco.vim'                       " semi colon automation/help
@@ -244,6 +267,9 @@ call plug#end()
 " ------------------------------------------------------------------------------
 " for situations where capslock isn't remapped
 imap jj <Esc>
+
+" three escapes to turn off search highlighting (there is probably a better way to do this... but this is working for now)
+nmap <Esc><Esc><Esc> <C-l>
 
 " remap vim-commentary, just quicker
 nmap cc gcc
@@ -435,7 +461,7 @@ endif
 " Random Commands Section
 " ------------------------------------------------------------------------------
 " <L>help     - pop helpme.md in a browser
-nnoremap <Leader>help :!source $HOME/.bash_profile && popmd $PROJECT_HOME/helpdocs/helpme.md<cr>
+nnoremap <Leader>help :!source $HOME/.bash_profile && popmd $PROJECT_HOME/utilities/helpme.md<cr>
 
 " <L>bar      - show all <Leader> mappings by grabbing them out of this file
 nnoremap <Leader>bar :! more ~/.vimrc \| grep '^" <L>' \| sed -e 's/^.*<L>\(.*\)/\1/'<cr>

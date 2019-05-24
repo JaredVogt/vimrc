@@ -9,7 +9,7 @@
 * `<Leader>reg`     - to see all registers (registers all start with `"` )
 * `U`               - return line to original state
 * `ctrl+r "`        - paste while in insert mode 
-* `ctrl+n`          - try to autocomplete from match in file
+* `ctrl+n`          - try to autocomplete from match in file (tab seems to do this too)
 * `%`               - jump to matching bracket
 * `I`               - go to beginning of the line in append mode
 * `''`              - go back to where cursor was last
@@ -43,6 +43,7 @@
 * `S"`              - vim-surround: surround visual selection with `"`
 * `S)`              - vim-surround: surround visual selection with `()`, no space `S(` for space
 * `ysiw]`           - vim-surround: put brackets around a word (iw is a text object)
+* `:changes`        - show the entries in the undo file
 
 ### Additional options
 * `:help macvim-user-defaults`    - see macvim default settings
