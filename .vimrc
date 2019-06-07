@@ -149,7 +149,8 @@ nnoremap <leader>vimrc :tabedit ~/projects/vimrc/.vimrc<cr>
 
 " <L>d        - show/hide NerdTree (netrw)
 " nnoremap <leader>d :Texplore<cr>  "netrw
-nnoremap <leader>d :vs.<cr>
+nnoremap <leader>d :e ~/.config/symlinks<cr>
+" nnoremap <leader>d :vs.<cr>
 
 " <L>reg      - see contents of all registers
 nnoremap <leader>reg :reg<cr>
@@ -427,17 +428,17 @@ if empty(glob('~/.vim/colors/srcery.vim'))
 endif
 
 " Fonts
-if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf'))
-  silent !curl -fLo ~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/SourceCodePro/Regular/complete/Sauce\%20Code\%20Pro\%20Nerd\%20Font\%20Complete\%20Mono.ttf
-endif
+" if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf'))
+"   silent !curl -fLo ~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/SourceCodePro/Regular/complete/Sauce\%20Code\%20Pro\%20Nerd\%20Font\%20Complete\%20Mono.ttf
+" endif
 
-if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Light_Nerd_Font_Complete_Mono.ttf'))
-  silent !curl -fLo ~/Library/Fonts/Sauce_Code_Pro_Light_Nerd_Font_Complete_Mono.ttf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/SourceCodePro/Light/complete/Sauce\%20Code\%20Pro\%20Light\%20Nerd\%20Font\%20Complete\%20Mono.ttf
-endif
+" if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Light_Nerd_Font_Complete_Mono.ttf'))
+"   silent !curl -fLo ~/Library/Fonts/Sauce_Code_Pro_Light_Nerd_Font_Complete_Mono.ttf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/SourceCodePro/Light/complete/Sauce\%20Code\%20Pro\%20Light\%20Nerd\%20Font\%20Complete\%20Mono.ttf
+" endif
 
-if empty(glob('~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf'))
-  silent !curl -fLo ~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid\%20Sans\%20Mono\%20for\%20Powerline\%20Nerd\%20Font\%20Complete.otf
-endif
+" if empty(glob('~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf'))
+"   silent !curl -fLo ~/Library/Fonts/Droid_Sans_Mono_for_Powerline_Nerd_Font_Complete.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DroidSansMono/complete/Droid\%20Sans\%20Mono\%20for\%20Powerline\%20Nerd\%20Font\%20Complete.otf
+" endif
 
 
 " ------------------------------------------------------------------------------
@@ -446,7 +447,8 @@ endif
 if has("gui_running")
   let $MYVIMRC = "~/.vimrc"           " this is not set by macvim - so forcing the issue
   " These are the basic settings to get the font to work (required):
-  set guifont=SauceCodePro\ Nerd\ Font:h14
+  " set guifont=SauceCodePro\ Nerd\ Font:h14
+  set guifont=Source\ Code\ Pro\ for\ Powerline:h14
   " set guifont=DroidSansMonoforPowerline\ Nerd\ Font:h14  "Chadwick declares this best programming font ever
   set encoding=utf-8
   " required if using https://github.com/bling/vim-airline
