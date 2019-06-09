@@ -15,8 +15,10 @@ y|Y) # yes
     ln -sf $currentDir/vimCheatSheet.md ~/.vim/vimCheatSheet.md
     ln -sf $currentDir/spell/en.utf-8.add ~/.vim/spell/en.utf-8.add
     ln -sf $currentDir/jareds-coffee.snippets ~/.vim/mySnips/.
+    ln -sf $currentDir/jareds-javascript.snippets ~/.vim/mySnips/.
     ln -sf $currentDir/jareds-shell.snippets ~/.vim/mySnips/.
     ln -sf $currentDir/more-shell.snippets ~/.vim/mySnips/.
+    ln -sf $currentDir/.vimstart.txt ~/.vimstart.txt
     echo -e "\nexecuting"
     ;;
 n|N) # no

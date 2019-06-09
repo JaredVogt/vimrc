@@ -1,0 +1,77 @@
+# My personal javascript snippets
+# `b` designates that it must match at the beginning of a line
+
+snippet jfunc "js: new function"
+${2:name} = (${3:var}) ->
+  # ${1:description}
+  $0
+endsnippet
+
+#snippet jp "cs: console.log"
+#console.log ${1:printWhat?}
+#${0:keep rolling}
+#endsnippet
+
+#snippet jcomm "cs: comment block" b
+#################################################################################################
+## ${1:Enter your comment}
+#################################################################################################
+#$0
+#endsnippet
+
+#snippet netrc "cs: netrc block" b
+#[login, account, password] = netrc().['${1:service}']
+#$0
+#endsnippet
+
+#snippet jyarg "cs: Insert a yargs block" b
+#usage = """${1:Put in a description}
+#"""
+#argv = require('yargs')
+#.usage "#{usage}\nUsage: \$0 -${2} [x description]"
+#.demand ['x']
+#.default('t', 'time')
+#.default('v', 'no')
+#.default('a', 0)
+#.argv
+#${0:and on to the next thing}
+#endsnippet
+
+#snippet jreq "cs: All my requires" b
+#netrc = require 'netrc'
+#moment = require 'moment'
+#fs = require 'fs'
+#_ = require 'lodash'
+#redis = require('promise-redis')()
+
+#endsnippet
+
+#snippet jprom "cs: Promise block"
+## to do
+#endsnippet
+
+#snippet jpromall "cs: Promiseall block"
+## to do
+#endsnippet
+
+#snippet jspawn "cs: spawn block" b
+#contents = ''
+#spawn ${1:command}, [${2:arg1}], ${3:options}  # cmd, args, opts
+#.stdout
+#.on 'data', (chunk) -> contents += chunk
+#.on 'error', (err) -> console.error 'Error', err
+#.on 'end', -> console.log contents  # might need `.tostring`
+#$0
+#endsnippet
+
+#snippet jread "cs: readFileSync"
+#fs = require "fs"
+#contents = fs.readFileSync ${1:filename}, 'utf8'
+
+#readFileSync = (file, json = 'no', encoding = 'utf8') ->
+#  contents = (require 'fs').readFileSync file, {encoding: encoding}
+#  if json is 'yes'
+#    JSON.parse contents
+#  else
+#    contents
+#endsnippet

@@ -59,7 +59,9 @@ syntax enable
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 
-colorscheme srcery
+" colorscheme srcery
+colorscheme solarized
+set background=dark
 " this is required to get true black background
 highlight Normal guibg=black
 
@@ -83,7 +85,7 @@ let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 let NERDTreeIgnore=['\.DS_Store$', '.swp', 'sublime-workspace', 'sublime-project']
 
-" ale settings 
+" ale settings
 let g:ale_sign_column_always = 1
 
 " automatic switching back to normal mode
@@ -138,7 +140,7 @@ nnoremap <Leader>x :x<CR>
 " <L>snip     - Edit my coffeescript snippets
 nnoremap <leader>snip :e ~/.vim/mySnips/jareds-coffee.snippets<cr>
 
-" <L>shell    - Open up snippets in split 
+" <L>shell    - Open up snippets in split
 nnoremap <leader>shell :vsp ~/.vim/mySnips/more-shell.snippets<cr>
 
 " <L>ev       - Edit active .vimrc FIXME: this should use $MYVIMRC
@@ -155,7 +157,7 @@ nnoremap <leader>d :e ~/.config/symlinks<cr>
 " <L>reg      - see contents of all registers
 nnoremap <leader>reg :reg<cr>
 
-" <L>s        - suggest spelling 
+" <L>s        - suggest spelling
 nnoremap <leader>s z=
 
 "" <L>u        - select word under cursor and prep for replace - http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor NOTE: <Left> kicks the cursor back to left
@@ -222,6 +224,7 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'xolox/vim-session'
 Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-markdown'                       " TODO: is this working? Need to add support for fenced languages - check this first
+" Plug 'mhinz/vim-startify'
 " Plug 'ryanoasis/vim-devicons'                   " adds filetype glyphs (icons) to other plugins
 " Plug 'ntpeters/vim-airline-colornum'            " sets info bar cursorline to same color as mode
 " Plug 'tpope/vim-unimpaired'                     " short normal mode aliases for commonly used ex commands
@@ -374,6 +377,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "mySnips"]
 autocmd FileType coffee UltiSnipsAddFiletypes jareds-coffee
 autocmd FileType sh UltiSnipsAddFiletypes jareds-shell
+autocmd FileType js UltiSnipsAddFiletypes jareds-javascript
 
 
 " ------------------------------------------------------------------------------
@@ -385,6 +389,10 @@ endif
 
 if empty(glob('~/.vim/mySnips/jareds-coffee.snippets'))
   silent !curl -fLo ~/.vim/mySnips/jareds-coffee.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-coffee.snippets
+endif
+
+if empty(glob('~/.vim/mySnips/jareds-javascript.snippets'))
+  silent !curl -fLo ~/.vim/mySnips/jareds-javascript.snippets --create-dirs https://raw.githubusercontent.com/JaredVogt/vimrc/master/jareds-javascript.snippets
 endif
 
 
@@ -415,17 +423,17 @@ let g:tagbar_type_coffee = {
 " ------------------------------------------------------------------------------
 " Load my Color stuff Section (color file and fonts?)
 " ------------------------------------------------------------------------------
-if empty(glob('~/.vim/colors/molokai_dark.vim'))
-  silent !curl -fLo ~/.vim/colors/molokai_dark.vim --create-dirs https://raw.githubusercontent.com/fcevado/molokai_dark/master/colors/molokai_dark.vim
-endif
+" if empty(glob('~/.vim/colors/molokai_dark.vim'))
+"   silent !curl -fLo ~/.vim/colors/molokai_dark.vim --create-dirs https://raw.githubusercontent.com/fcevado/molokai_dark/master/colors/molokai_dark.vim
+" endif
 
-if empty(glob('~/.vim/colors/monokai.vim'))
-  silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
-endif
+" if empty(glob('~/.vim/colors/monokai.vim'))
+"   silent !curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim
+" endif
 
-if empty(glob('~/.vim/colors/srcery.vim'))
-  silent !curl -fLo ~/.vim/colors/srcery.vim --create-dirs https://raw.githubusercontent.com/roosta/srcery/master/colors/srcery.vim
-endif
+" if empty(glob('~/.vim/colors/srcery.vim'))
+"   silent !curl -fLo ~/.vim/colors/srcery.vim --create-dirs https://raw.githubusercontent.com/roosta/srcery/master/colors/srcery.vim
+" endif
 
 " Fonts
 " if empty(glob('~/Library/Fonts/Sauce_Code_Pro_Nerd_Font_Complete_Mono.ttf'))
@@ -504,6 +512,54 @@ augroup myvimrc
     autocmd BufWritePost .vimrc,.gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
     :echo "Sourced rc files"
 augroup END
+
+" ------------------------------------------------------------------------------
+" Highlight trailing spaces
+" ------------------------------------------------------------------------------
+highlight RedundantSpaces ctermbg=red guibg=red
+match RedundantSpaces /\s\+$/
+
+" ------------------------------------------------------------------------------
+" Startup Screen
+" ------------------------------------------------------------------------------
+fun! Start()
+
+  "Create a new unnamed buffer to display our splash screen inside of.
+  enew
+
+  " Set some options for this buffer to make sure that does not act like a
+  " normal winodw.
+  setlocal
+    \ bufhidden=wipe
+    \ buftype=nofile
+    \ nobuflisted
+    \ nocursorcolumn
+    \ nocursorline
+    \ nolist
+    \ nonumber
+    \ noswapfile
+    \ norelativenumber
+
+  " Our message goes here. Mine is simple.
+  " call append('$', "hello")
+  exec ":r ~/.vimstart.txt"
+
+  " When we are done writing out message set the buffer to readonly.
+  setlocal
+    \ nomodifiable
+    \ nomodified
+
+  " Just like with the default start page, when we switch to insert mode
+  " a new buffer should be opened which we can then later save.
+  nnoremap <buffer><silent> e :enew<CR>
+  nnoremap <buffer><silent> i :enew <bar> startinsert<CR>
+  nnoremap <buffer><silent> o :enew <bar> startinsert<CR>
+
+endfun
+
+if argc() == 0
+  autocmd VimEnter * call Start()
+endif
 
 " ------------------------------------------------------------------------------
 " Insperation Section
