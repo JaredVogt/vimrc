@@ -1,4 +1,10 @@
-- $500 to have the emergency medical from anywhere - they will send a learjet and take you somewhere
+# Todos
+* clean up the documentation in this repo - it's old. 
+* snippets are old - and probably use an old method - revisit
+* update vimCheatSheet.md
+* vimstart.txt probably isn't used
+
+# Everything below this line is old... sift through at convienence
 - how to save buffers when shutting vim
 - perhaps remap autocomplete on snippets to something other than `ctrl+tab`
 - what are popups? So an example is what ultisnips uses when you pull up the autocomplete menu - so you can use this for all kinds of fun stuff. There is a plug in that lets you have  your registers show up in a list
@@ -20,8 +26,6 @@ Ok - some things I have try out after reading vim books
 - ctag support for coffeescript - have to add a config file with the CS regex definitions - can be done with .ctags in root of directory or perhaps ctags.conf per https://github.com/winstonwolff/ctags-javascript-coffeescript?
 - have to use `\` to escape a `|` in a shell command (see <L>cheat)
 
-
-
 CTAGS
 - I used the regex from this project, https://github.com/winstonwolff/ctags-javascript-coffeescript/blob/master/ctags.conf (used it how??)
 - I put the contents of https://raw.githubusercontent.com/winstonwolff/ctags-javascript-coffeescript/master/ctags.conf in .ctags config file (maybe ctags recognizes ctag.conf as well - or perhaps that can be defined globally)
@@ -34,7 +38,6 @@ Navigating through code/files
 - lusty explorer - buffergrep - live search through all open buffers - focus on string that you have typed in 
 - ack-vim - grep replacement optimized more for code
 - fuzzyfinder
-
 
 
 color coding less
