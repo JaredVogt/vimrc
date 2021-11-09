@@ -31,4 +31,4 @@ n|N) # no
     ;;
 esac
 
-# TODO: add a command to clear all of these files befor creating the links. This would allow one to link to vimrc project after the fact. 
+# TODO: add a command to clear all of these files before creating the links. This would allow one to link to vimrc project after the fact. 
